@@ -21,7 +21,11 @@ public class BookController {
 
     @PostMapping
     public String addBook(@RequestBody BookDto bookDto) {
-        Book book = new Book(bookDto.getTitle(), bookDto.getGenre());
+        Book book = new Book();
+        book.setTitle(bookDto.getTitle());
+        book.setAuthor(bookDto.getAuthor());
+        book.setGenre(bookDto.getGenre());
+        book.setYear(bookDto.getYear());
         bookService.saveBook(book);
         return "Book works!";
     }

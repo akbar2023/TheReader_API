@@ -27,7 +27,7 @@ public class BookController {
         book.setGenre(bookDto.getGenre());
         book.setYear(bookDto.getYear());
         bookService.saveBook(book);
-        return "Book works!";
+        return bookDto.getTitle() + " success!";
     }
 
     @GetMapping

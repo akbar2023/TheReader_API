@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres
+    container_name: "auth-postgres"
+    environment:
+      - POSTGRES_PASSWORD=docker
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+volumes:
+  pgdata:

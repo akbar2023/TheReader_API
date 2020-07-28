@@ -3,7 +3,6 @@ package fr.akbarkhan.mediatheque.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,14 +12,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-
-import static fr.akbarkhan.mediatheque.security.ApplicationUserPermission.BOOK_WRITE;
 import static fr.akbarkhan.mediatheque.security.ApplicationUserRole.*;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true) // enables @PreAuthorize
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
@@ -33,16 +29,20 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-//                .and()
-                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
-                .antMatchers("/book/**").hasRole(USER.name())
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic();
+                .formLogin()
+                    .defaultSuccessUrl("/book", true)
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login");
     }
 
     @Override
@@ -50,28 +50,25 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected UserDetailsService userDetailsService() {
         UserDetails akbar = User.builder()
                 .username("akbar")
-                .password(passwordEncoder.encode("Mybooks20"))
-//                .roles(ADMIN.name()) // ROLE_USER
+                .password(passwordEncoder.encode("akbar123"))
                 .authorities(ADMIN.getGrantedAuthorities())
                 .build();
 
-        UserDetails jhon = User.builder()
-                .username("jhon")
-                .password(passwordEncoder.encode("jojo123"))
-//                .roles(USER.name())
+        UserDetails john = User.builder()
+                .username("john")
+                .password(passwordEncoder.encode("john123"))
                 .authorities(USER.getGrantedAuthorities())
                 .build();
 
         UserDetails barry = User.builder()
                 .username("barry")
                 .password(passwordEncoder.encode("barry123"))
-//                .roles(ADMINTRAINEE.name())
                 .authorities(ADMINTRAINEE.getGrantedAuthorities())
                 .build();
 
         return new InMemoryUserDetailsManager(
                 akbar,
-                jhon,
+                john,
                 barry
         );
     }

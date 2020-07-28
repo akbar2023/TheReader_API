@@ -26,13 +26,7 @@ public class BookManagementController {
     @PostMapping
     @PreAuthorize("hasAuthority('book:write')")
     public Book createBook(@RequestBody BookDto bookDto) {
-        Book book = new Book();
-        book.setTitle(bookDto.getTitle());
-        book.setAuthor(bookDto.getAuthor());
-        book.setGenre(bookDto.getGenre());
-        book.setYear(bookDto.getYear());
-        bookService.saveBook(book);
-        return book;
+        return bookService.saveBook(bookDto);
     }
 
     @DeleteMapping("/{bookId}")

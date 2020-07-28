@@ -68,8 +68,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
         return new InMemoryUserDetailsManager(
                 akbar,
-                john,
-                barry
+                john
         );
     }
 

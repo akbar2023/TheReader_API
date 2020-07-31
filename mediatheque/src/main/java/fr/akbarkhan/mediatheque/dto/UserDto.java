@@ -1,33 +1,60 @@
 package fr.akbarkhan.mediatheque.dto;
 
+import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class UserDto {
 
-    private int id;
-    private String username;
+    @NotBlank
+    @Size(min = 2, max = 100)
+    private String firstName;
+
+    @NotBlank
+    @Size(min = 2, max = 100)
+    private String lastName;
+
+    @Email
+    @NotBlank
+    private String email;
+
+    @NotBlank
+    @Size(min = 4, max = 20)
     private String password;
 
-    public UserDto(String name, String password) {
-        this.username = name;
+    public UserDto(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.password = password;
     }
 
     public UserDto() {}
 
-
-    public int getId() {
-        return id;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -41,8 +68,9 @@ public class UserDto {
     @Override
     public String toString() {
         return "UserDto{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
+                " firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

@@ -8,17 +8,16 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public String createUser(@RequestBody UserDto userDto) {
-        User user = new User(userDto.getUsername(), userDto.getPassword());
-        userService.saveUser(user);
-        return "Sign Up success for user " + user.getUsername() + "!";
+        userService.saveUser(userDto);
+        return "Sign Up success";
     }
 
 //    @GetMapping

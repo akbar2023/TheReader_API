@@ -9,7 +9,7 @@ import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("api/api/user")
 public class UserController {
 
     @Autowired
@@ -18,22 +18,6 @@ public class UserController {
     @PostMapping("/register")
     public String createUser(@Valid @RequestBody UserDto userDto) {
         userService.saveUser(userDto);
-        return "Sign Up success for userDto " + userDto.getFirstName() + "!";
+        return "Sign Up success";
     }
-
-//    @GetMapping
-//    public String userLogin(@RequestBody UserDto userDto) {
-//
-//        User user =  userService.findByUsername(userDto.getUsername());
-//
-//        if (user == null) {
-//            throw new UserNotFoundException("User not found!");
-//        }
-//        else if(user.getPassword().equals(userDto.getPassword())) {
-//            return "Login success!";
-//        }
-//        else{
-//            return "Password incorrect!";
-//        }
-//    }
 }

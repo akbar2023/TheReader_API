@@ -9,7 +9,7 @@ import javax.validation.Valid;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/api/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired

@@ -12,8 +12,7 @@ public class BookDto {
 
     public BookDto() {}
 
-    public BookDto(int id, String title, String genre, String author, Integer year) {
-        this.id = id;
+    public BookDto(String title, String genre, String author, Integer year) {
         this.title = title;
         this.genre = genre;
         this.author = author;

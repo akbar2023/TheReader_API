@@ -23,6 +23,6 @@ public class ApplicationUserService implements UserDetailsService {
         return applicationUserDao
                 .selectApplicationUserByUsername(username)
                 .orElseThrow(() ->
-                        new UserNotFoundException(String.format("Username was not found", username)));
+                        new UserNotFoundException(String.format("User %s was not found", username)));
     }
 }

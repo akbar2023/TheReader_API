@@ -1,11 +1,14 @@
 package fr.akbarkhan.mediatheque.service;
 
 import fr.akbarkhan.mediatheque.dto.UserDto;
-import fr.akbarkhan.mediatheque.entity.User;
+import fr.akbarkhan.mediatheque.dto.UserRegisterDto;
+import fr.akbarkhan.mediatheque.entity.MyUser;
 
 public interface UserService {
 
-    void saveUser(UserDto user);
+    boolean saveUser(UserRegisterDto user);
 
-    User findByUsername(String username);
+    MyUser findByUsername(String username);
+
+    boolean updateUser(UserDto userDto, int id);
 }

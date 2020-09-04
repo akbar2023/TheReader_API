@@ -1,16 +1,10 @@
 package fr.akbarkhan.mediatheque.dto;
 
-import fr.akbarkhan.mediatheque.entity.Role;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Collection;
 
-public class UserDto {
-
-    private Integer id;
+public class UserRegisterDto {
 
     @NotBlank
     @Size(min = 2, max = 100)
@@ -22,50 +16,20 @@ public class UserDto {
 
     @NotBlank
     @Email
-    @Size(min = 4 , max = 100)
+    @Size(min = 4, max = 100)
     private String email; // must be an email
 
     @NotBlank
     @Size(min = 4, max = 20)
     private String password;
 
-    @NotNull
-    private String role;
-
-
-    public UserDto() {}
-
-    public UserDto(String firstName,
-                   String lastName,
-                   String email,
-                   String password) {
+    public UserRegisterDto(String firstName,
+                           String lastName,
+                           String email,
+                           String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -85,21 +49,28 @@ public class UserDto {
         this.lastName = lastName;
     }
 
-    public String getRole() {
-        return role;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
-        return "UserDto{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
+        return "UserRegisterDto{" +
+                "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", username='" + email + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

@@ -1,6 +1,6 @@
 package fr.akbarkhan.mediatheque.security;
 
-import fr.akbarkhan.mediatheque.auth.ApplicationUserService;
+import fr.akbarkhan.mediatheque.auth.UserDetailsServiceImpl;
 import fr.akbarkhan.mediatheque.jwt.JwtConfig;
 import fr.akbarkhan.mediatheque.jwt.JwtTokenVerifier;
 import fr.akbarkhan.mediatheque.jwt.JwtUsernameAndPasswordAuthenticationFilter;
@@ -20,7 +20,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.crypto.SecretKey;
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -29,17 +28,17 @@ import java.util.List;
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
-    private final ApplicationUserService applicationUserService;
+    private final UserDetailsServiceImpl userDetailsServiceImpl;
     private final SecretKey secretKey;
     private final JwtConfig jwtConfig;
 
     @Autowired
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
-                                     ApplicationUserService applicationUserService,
+                                     UserDetailsServiceImpl userDetailsServiceImpl,
                                      SecretKey secretKey,
                                      JwtConfig jwtConfig) {
         this.passwordEncoder = passwordEncoder;
-        this.applicationUserService = applicationUserService;
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.secretKey = secretKey;
         this.jwtConfig = jwtConfig;
     }
@@ -71,7 +70,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
-        provider.setUserDetailsService(applicationUserService);
+        provider.setUserDetailsService(userDetailsServiceImpl);
         return provider;
     }
 

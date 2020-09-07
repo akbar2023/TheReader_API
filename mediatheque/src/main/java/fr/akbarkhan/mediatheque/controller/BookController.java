@@ -19,33 +19,31 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN, USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public List<Book> getAllBooks() {
         return bookService.findAll();
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN, USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public Optional<Book> getById(@PathVariable("id") int id) {
         return bookService.findById(id);
     }
 
     @GetMapping("/title/{title}")
-    @PreAuthorize("hasAnyRole('ADMIN, USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public List<Book> getByName(@PathVariable("title") String title) {
-        List<Book> list = bookService.findByTitle(title);
-        return list;
+        return bookService.findByTitle(title);
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public Book addBook(@RequestBody BookDto bookDto) {
-        Book book = bookService.saveBook(bookDto);
-        return book;
+        return bookService.saveBook(bookDto);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public String updateBook(@RequestBody BookDto bookDto, @PathVariable("id") Integer id) {
         bookService.updateBook(bookDto, id);
         return "Update success!";

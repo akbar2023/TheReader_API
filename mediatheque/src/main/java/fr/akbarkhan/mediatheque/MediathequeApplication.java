@@ -48,7 +48,7 @@ public class MediathequeApplication {
 //			user.setEmail("laurent@email.com");
 //			user.setPassword(passwordEncoder.encode("password"));
 //			Collection<Role> roles =  new ArrayList<Role>() ;
-//			roles.add(roleRepository.findByRole("USER"));
+//			roles.add(roleRepository.findByRole("USER").orElse(null));
 //			user.setRoles(roles);
 //					userRepository.save(user);
 //		};

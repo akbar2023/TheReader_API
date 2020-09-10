@@ -20,20 +20,24 @@ public class Book {
     @Column(nullable = false)
     private String genre;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String author;
 
-    @Column (nullable = true)
+    @Column(nullable = false)
     private Integer year;
+
+    @Column(nullable = false)
+    private String summary;
 
     public Book() {}
 
-    public Book(int id, String title, String genre, String author, Integer year) {
+    public Book(int id, String title, String genre, String author, Integer year, String summary) {
         this.id = id;
         this.title = title;
         this.genre = genre;
         this.author = author;
         this.year = year;
+        this.summary = summary;
     }
 
     public int getId() {
@@ -76,6 +80,14 @@ public class Book {
         this.year = year;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -84,6 +96,7 @@ public class Book {
                 ", genre='" + genre + '\'' +
                 ", author='" + author + '\'' +
                 ", year=" + year +
+                ", summary='" + summary + '\'' +
                 '}';
     }
 }

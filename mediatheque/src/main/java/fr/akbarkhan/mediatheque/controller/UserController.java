@@ -4,6 +4,7 @@ import fr.akbarkhan.mediatheque.dto.UserDto;
 import fr.akbarkhan.mediatheque.dto.UserRegisterDto;
 import fr.akbarkhan.mediatheque.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,9 +23,8 @@ public class UserController {
         return userService.saveUser(registerDto) ? "Sign Up success" : "User " + email + " already exists";
     }
 
-    // TODO: set access to ADMIN only
-//    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{userId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String updateUser(@Valid @RequestBody UserDto userDto, @PathVariable("userId") int userId) {
         userService.updateUser(userDto, userId);
         return String.format("user %s updated", userDto.getEmail());

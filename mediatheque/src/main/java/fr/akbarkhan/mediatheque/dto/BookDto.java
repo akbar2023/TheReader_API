@@ -9,14 +9,17 @@ public class BookDto {
     private String genre;
     private String author;
     private Integer year;
+    private String summary;
 
     public BookDto() {}
 
-    public BookDto(String title, String genre, String author, Integer year) {
+    public BookDto(int id, String title, String genre, String author, Integer year, String summary) {
+        this.id = id;
         this.title = title;
         this.genre = genre;
         this.author = author;
         this.year = year;
+        this.summary = summary;
     }
 
     public int getId() {
@@ -59,6 +62,14 @@ public class BookDto {
         this.year = year;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     @Override
     public String toString() {
         return "BookDto{" +
@@ -67,6 +78,7 @@ public class BookDto {
                 ", genre='" + genre + '\'' +
                 ", author='" + author + '\'' +
                 ", year=" + year +
+                ", summary='" + summary + '\'' +
                 '}';
     }
 }

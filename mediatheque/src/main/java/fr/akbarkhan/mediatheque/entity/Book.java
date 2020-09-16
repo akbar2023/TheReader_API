@@ -1,10 +1,6 @@
 package fr.akbarkhan.mediatheque.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
-import java.time.Year;
 
 @Entity
 @Table(name = "books")
@@ -28,6 +24,10 @@ public class Book {
 
     @Column(nullable = false)
     private String summary;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "creator_id", nullable = false)
+    MyUser creator;
 
     public Book() {}
 
@@ -86,6 +86,14 @@ public class Book {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public MyUser getCreator() {
+        return creator;
+    }
+
+    public void setCreator(MyUser creator) {
+        this.creator = creator;
     }
 
     @Override

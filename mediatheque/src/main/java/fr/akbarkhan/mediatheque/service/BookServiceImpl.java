@@ -2,9 +2,14 @@ package fr.akbarkhan.mediatheque.service;
 
 import fr.akbarkhan.mediatheque.dto.BookDto;
 import fr.akbarkhan.mediatheque.entity.Book;
+import fr.akbarkhan.mediatheque.entity.MyUser;
 import fr.akbarkhan.mediatheque.repository.BookRepository;
+import fr.akbarkhan.mediatheque.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,6 +20,9 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Optional<Book> findById(int id) {
@@ -43,6 +51,9 @@ public class BookServiceImpl implements BookService {
         book.setGenre(bookDto.getGenre());
         book.setYear(bookDto.getYear());
         book.setSummary(bookDto.getSummary());
+        Integer creatorId = bookDto.getCreatorId();
+        Optional<MyUser> creator = userRepository.findById(creatorId);
+        book.setCreator(creator.orElse(null));
         return bookRepository.save(book);
     }
 

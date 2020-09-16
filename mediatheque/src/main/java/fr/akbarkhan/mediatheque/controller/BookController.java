@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/api/book")
 public class BookController {
 
     @Autowired
@@ -38,13 +39,13 @@ public class BookController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public Book addBook(@RequestBody BookDto bookDto) {
+    public Book addBook(@Valid @RequestBody BookDto bookDto) {
         return bookService.saveBook(bookDto);
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public String updateBook(@RequestBody BookDto bookDto, @PathVariable("id") Integer id) {
+    public String updateBook(@Valid @RequestBody BookDto bookDto, @PathVariable("id") Integer id) {
         bookService.updateBook(bookDto, id);
         return "Update success!";
     }

@@ -1,25 +1,51 @@
 package fr.akbarkhan.mediatheque.dto;
 
-import java.time.Year;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class BookDto {
 
     private int id;
+
+    @NotBlank
+    @Size(min = 2, max = 100)
     private String title;
+
+    @NotBlank
+    @Size(min = 2, max = 20)
     private String genre;
+
+    @NotBlank
+    @Size(min = 2, max = 100)
     private String author;
+
+    @NotNull
     private Integer year;
+
+    @NotBlank
+    @Size(min = 10, max = 255)
     private String summary;
 
-    public BookDto() {}
+    @NotNull
+    private Integer creatorId;
 
-    public BookDto(int id, String title, String genre, String author, Integer year, String summary) {
-        this.id = id;
+    public BookDto() {
+    }
+
+    public BookDto(
+            String title,
+            String genre,
+            String author,
+            Integer year,
+            String summary,
+            Integer creatorId) {
         this.title = title;
         this.genre = genre;
         this.author = author;
         this.year = year;
         this.summary = summary;
+        this.creatorId = creatorId;
     }
 
     public int getId() {
@@ -70,6 +96,14 @@ public class BookDto {
         this.summary = summary;
     }
 
+    public Integer getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Integer creatorId) {
+        this.creatorId = creatorId;
+    }
+
     @Override
     public String toString() {
         return "BookDto{" +
@@ -79,6 +113,7 @@ public class BookDto {
                 ", author='" + author + '\'' +
                 ", year=" + year +
                 ", summary='" + summary + '\'' +
+                ", creatorId=" + creatorId +
                 '}';
     }
 }

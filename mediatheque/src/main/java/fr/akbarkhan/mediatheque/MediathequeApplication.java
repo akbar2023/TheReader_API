@@ -42,35 +42,35 @@ public class MediathequeApplication {
 		SpringApplication.run(MediathequeApplication.class, args);
 	}
 
-	@Bean
-	@Transactional
-	CommandLineRunner start(RoleRepository roleRepository, UserRepository userRepository, BookRepository bookRepository) {
-		return args -> {
-					roleRepository.save(new Role("ADMIN"));
-					roleRepository.save(new Role("USER"));
-			MyUser user = new MyUser();
-			user.setFirstName("Laurent");
-			user.setLastName("DOE");
-			user.setEmail("laurent@email.com");
-			user.setEnabled(true);
-			user.setPassword(passwordEncoder.encode("password"));
-			Collection<Role> roles =  new ArrayList<Role>() ;
-			roles.add(roleRepository.findByRole("USER").orElse(null));
-			user.setRoles(roles);
-					userRepository.save(user);
-
-			MyUser laurent = userService.findByUsername(user.getEmail());
-			Book book = new Book();
-			book.setAuthor("KHAN");
-			book.setSummary("Last summer night");
-			book.setGenre("Romance");
-			book.setTitle("Summer Story");
-			book.setYear(2022);
-			book.setCreator(laurent);
-			bookRepository.save(book);
-
-		};
-	}
+//	@Bean
+//	@Transactional
+//	CommandLineRunner start(RoleRepository roleRepository, UserRepository userRepository, BookRepository bookRepository) {
+//		return args -> {
+//					roleRepository.save(new Role("ADMIN"));
+//					roleRepository.save(new Role("USER"));
+//			MyUser user = new MyUser();
+//			user.setFirstName("Laurent");
+//			user.setLastName("DOE");
+//			user.setEmail("laurent@email.com");
+//			user.setEnabled(true);
+//			user.setPassword(passwordEncoder.encode("password"));
+//			Collection<Role> roles =  new ArrayList<Role>() ;
+//			roles.add(roleRepository.findByRole("USER").orElse(null));
+//			user.setRoles(roles);
+//					userRepository.save(user);
+//
+//			MyUser laurent = userService.findByUsername(user.getEmail());
+//			Book book = new Book();
+//			book.setAuthor("KHAN");
+//			book.setSummary("Last summer night");
+//			book.setGenre("Romance");
+//			book.setTitle("Summer Story");
+//			book.setYear(2022);
+//			book.setCreator(laurent);
+//			bookRepository.save(book);
+//
+//		};
+//	}
 
 }
 

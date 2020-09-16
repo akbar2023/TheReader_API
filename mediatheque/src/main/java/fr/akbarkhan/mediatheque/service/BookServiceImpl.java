@@ -1,6 +1,8 @@
 package fr.akbarkhan.mediatheque.service;
 
+import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
+import fr.akbarkhan.mediatheque.dto.CreatorDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
 import fr.akbarkhan.mediatheque.repository.BookRepository;
@@ -39,8 +41,30 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<BookDetailsDto> findAllWithCreator() {
+        List<Book> all = bookRepository.findAll();
+
+        List<BookDetailsDto> books = new ArrayList<>();
+
+        all.forEach(book -> {
+            CreatorDto creator = new CreatorDto(
+                    book.getCreator().getFirstName(),
+                    book.getCreator().getLastName(),
+                    book.getCreator().getEmail()
+            );
+
+            BookDetailsDto bookDetailsDto = new BookDetailsDto(
+                    book.getId(),
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getGenre(),
+                    book.getSummary(),
+                    book.getYear(),
+                    creator
+            );
+            books.add(bookDetailsDto);
+        });
+        return books;
     }
 
     @Override
@@ -64,6 +88,7 @@ public class BookServiceImpl implements BookService {
         bookStored.setAuthor(bookDto.getAuthor());
         bookStored.setGenre(bookDto.getGenre());
         bookStored.setYear(bookDto.getYear());
+        bookStored.setSummary(bookDto.getSummary());
         bookRepository.save(bookStored);
     }
 

@@ -1,5 +1,6 @@
 package fr.akbarkhan.mediatheque.controller;
 
+import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.service.BookService;
@@ -21,8 +22,8 @@ public class BookController {
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public List<Book> getAllBooks() {
-        return bookService.findAll();
+    public List<BookDetailsDto> getAllBooks() {
+        return bookService.findAllWithCreator();
     }
 
     @GetMapping("/{id}")

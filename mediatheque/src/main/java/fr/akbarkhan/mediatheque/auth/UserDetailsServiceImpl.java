@@ -2,7 +2,6 @@ package fr.akbarkhan.mediatheque.auth;
 
 import fr.akbarkhan.mediatheque.entity.MyUser;
 import fr.akbarkhan.mediatheque.exception.UserNotFoundException;
-import fr.akbarkhan.mediatheque.repository.UserRepository;
 import fr.akbarkhan.mediatheque.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

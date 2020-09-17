@@ -1,10 +1,17 @@
 package fr.akbarkhan.mediatheque.service;
 
+import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
+import fr.akbarkhan.mediatheque.dto.CreatorDto;
 import fr.akbarkhan.mediatheque.entity.Book;
+import fr.akbarkhan.mediatheque.entity.MyUser;
 import fr.akbarkhan.mediatheque.repository.BookRepository;
+import fr.akbarkhan.mediatheque.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,6 +22,9 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Optional<Book> findById(int id) {
@@ -31,8 +41,30 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<BookDetailsDto> findAllWithCreator() {
+        List<Book> all = bookRepository.findAll();
+
+        List<BookDetailsDto> books = new ArrayList<>();
+
+        all.forEach(book -> {
+            CreatorDto creator = new CreatorDto(
+                    book.getCreator().getFirstName(),
+                    book.getCreator().getLastName(),
+                    book.getCreator().getEmail()
+            );
+
+            BookDetailsDto bookDetailsDto = new BookDetailsDto(
+                    book.getId(),
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getGenre(),
+                    book.getSummary(),
+                    book.getYear(),
+                    creator
+            );
+            books.add(bookDetailsDto);
+        });
+        return books;
     }
 
     @Override
@@ -43,6 +75,9 @@ public class BookServiceImpl implements BookService {
         book.setGenre(bookDto.getGenre());
         book.setYear(bookDto.getYear());
         book.setSummary(bookDto.getSummary());
+        Integer creatorId = bookDto.getCreatorId();
+        Optional<MyUser> creator = userRepository.findById(creatorId);
+        book.setCreator(creator.orElse(null));
         return bookRepository.save(book);
     }
 
@@ -53,6 +88,7 @@ public class BookServiceImpl implements BookService {
         bookStored.setAuthor(bookDto.getAuthor());
         bookStored.setGenre(bookDto.getGenre());
         bookStored.setYear(bookDto.getYear());
+        bookStored.setSummary(bookDto.getSummary());
         bookRepository.save(bookStored);
     }
 

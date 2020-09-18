@@ -26,7 +26,10 @@ public class UserController {
     @PutMapping("/update/{userId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String updateUser(@Valid @RequestBody UserDto userDto, @PathVariable("userId") int userId) {
-        userService.updateUser(userDto, userId);
-        return String.format("user %s updated", userDto.getEmail());
+        if (userService.updateUser(userDto, userId)) {
+             return String.format("user %s updated", userDto.getEmail());
+        } else {
+            return String.format("user %s update error", userDto.getEmail());
+        }
     }
 }

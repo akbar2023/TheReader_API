@@ -1,5 +1,6 @@
 package fr.akbarkhan.mediatheque.service;
 
+import fr.akbarkhan.mediatheque.dto.ConnectedUserDto;
 import fr.akbarkhan.mediatheque.dto.UserDto;
 import fr.akbarkhan.mediatheque.dto.UserRegisterDto;
 import fr.akbarkhan.mediatheque.entity.MyUser;
@@ -7,11 +8,9 @@ import fr.akbarkhan.mediatheque.entity.Role;
 import fr.akbarkhan.mediatheque.repository.RoleRepository;
 import fr.akbarkhan.mediatheque.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
@@ -55,6 +54,20 @@ public class UserServiceImpl implements UserService {
     public MyUser findByUsername(String username) {
         Optional<MyUser> user = userRepository.findByEmail(username);
         return user.orElse(null);
+    }
+
+    @Override
+    public ConnectedUserDto findByEmail(String username) {
+        Optional<MyUser> user = userRepository.findByEmail(username);
+        ConnectedUserDto detailsDto = new ConnectedUserDto();
+        if (user.isPresent()) {
+            detailsDto.setFirstName(user.get().getFirstName());
+            detailsDto.setLastName(user.get().getLastName());
+            detailsDto.setEmail(user.get().getEmail());
+            return detailsDto;
+        } else {
+            return null;
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package fr.akbarkhan.mediatheque.controller;
 
+import fr.akbarkhan.mediatheque.dto.ConnectedUserDto;
 import fr.akbarkhan.mediatheque.dto.UserDto;
 import fr.akbarkhan.mediatheque.dto.UserRegisterDto;
 import fr.akbarkhan.mediatheque.service.UserService;
@@ -27,9 +28,15 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public String updateUser(@Valid @RequestBody UserDto userDto, @PathVariable("userId") int userId) {
         if (userService.updateUser(userDto, userId)) {
-             return String.format("user %s updated", userDto.getEmail());
+            return String.format("user %s updated", userDto.getEmail());
         } else {
             return String.format("user %s update error", userDto.getEmail());
         }
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
+    public ConnectedUserDto getUserDetails(@RequestBody ConnectedUserDto connectedUserDto) {
+        return userService.findByEmail(connectedUserDto.getEmail());
     }
 }

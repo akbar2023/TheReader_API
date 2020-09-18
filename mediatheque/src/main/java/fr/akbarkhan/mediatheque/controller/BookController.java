@@ -26,18 +26,21 @@ public class BookController {
         return bookService.findAllWithCreator();
     }
 
+    //todo: manage optional on services
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public Optional<Book> getById(@PathVariable("id") int id) {
         return bookService.findById(id);
     }
 
+    // todo: change return type to BookDetailsDto
     @GetMapping("/title/{title}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public List<Book> getByName(@PathVariable("title") String title) {
         return bookService.findByTitle(title);
     }
 
+    // todo: change return type to BookDetailsDto
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public Book addBook(@Valid @RequestBody BookDto bookDto) {

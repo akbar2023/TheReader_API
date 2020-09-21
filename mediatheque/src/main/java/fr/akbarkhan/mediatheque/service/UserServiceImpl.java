@@ -61,6 +61,7 @@ public class UserServiceImpl implements UserService {
         Optional<MyUser> user = userRepository.findByEmail(username);
         ConnectedUserDto detailsDto = new ConnectedUserDto();
         if (user.isPresent()) {
+            detailsDto.setId(user.get().getId());
             detailsDto.setFirstName(user.get().getFirstName());
             detailsDto.setLastName(user.get().getLastName());
             detailsDto.setEmail(user.get().getEmail());

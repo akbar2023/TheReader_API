@@ -7,12 +7,9 @@ import javax.validation.constraints.Size;
 
 public class ConnectedUserDto {
 
+    private Integer id;
     private String firstName;
     private String lastName;
-
-    @NotBlank
-    @Email
-    @Size(min = 4 , max = 100, message = "email must be valid")
     private String email;
 
     public ConnectedUserDto(String firstName, String lastName, String email) {
@@ -46,6 +43,14 @@ public class ConnectedUserDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override

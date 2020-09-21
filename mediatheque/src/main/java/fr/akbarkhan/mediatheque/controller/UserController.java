@@ -34,9 +34,9 @@ public class UserController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/{email}")
     @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
-    public ConnectedUserDto getUserDetails(@RequestBody ConnectedUserDto connectedUserDto) {
-        return userService.findByEmail(connectedUserDto.getEmail());
+    public ConnectedUserDto getUserDetails(@PathVariable("email") String email) {
+        return userService.findByEmail(email);
     }
 }

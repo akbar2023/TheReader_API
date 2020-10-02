@@ -1,9 +1,10 @@
 package fr.akbarkhan.mediatheque.service;
 
-import fr.akbarkhan.mediatheque.dto.ConnectedUserDto;
-import fr.akbarkhan.mediatheque.dto.UserDto;
-import fr.akbarkhan.mediatheque.dto.UserRegisterDto;
+import fr.akbarkhan.mediatheque.dto.*;
+import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -14,4 +15,8 @@ public interface UserService {
     ConnectedUserDto findByEmail(String email);
 
     boolean updateUser(UserDto userDto, int id);
+
+    boolean addUserBook(UserBookDto userBookDto);
+
+    List<Book> findUserBooks(Integer userId);
 }

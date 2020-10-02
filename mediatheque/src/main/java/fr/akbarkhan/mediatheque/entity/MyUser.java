@@ -2,6 +2,7 @@ package fr.akbarkhan.mediatheque.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -9,7 +10,7 @@ public class MyUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false, length = 100)
     private String firstName;
@@ -32,25 +33,44 @@ public class MyUser {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
+    @ManyToMany
+    @JoinTable(
+            name = "users_books",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "book_id", referencedColumnName = "id"))
+    private List<Book> bookList;
+
     @Column(nullable = false)
     private boolean isEnabled;
 
     public MyUser() {
     }
 
-    public MyUser(MyUser myUser) {
-        this.id = myUser.getId();
-        this.firstName = myUser.getFirstName();
-        this.lastName = myUser.getLastName();
-        this.email = myUser.getEmail();
-        this.password = myUser.getPassword();
+    public MyUser(Integer id,
+                  String firstName,
+                  String lastName,
+                  String email,
+                  String password,
+                  Collection<Role> roles,
+                  List<Book> bookList,
+                  boolean isEnabled) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+        this.bookList = bookList;
+        this.isEnabled = isEnabled;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -92,6 +112,14 @@ public class MyUser {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
     }
 
     public boolean isEnabled() {

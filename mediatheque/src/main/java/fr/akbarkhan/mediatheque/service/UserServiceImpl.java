@@ -1,10 +1,13 @@
 package fr.akbarkhan.mediatheque.service;
 
 import fr.akbarkhan.mediatheque.dto.ConnectedUserDto;
+import fr.akbarkhan.mediatheque.dto.UserBookDto;
 import fr.akbarkhan.mediatheque.dto.UserDto;
 import fr.akbarkhan.mediatheque.dto.UserRegisterDto;
+import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
 import fr.akbarkhan.mediatheque.entity.Role;
+import fr.akbarkhan.mediatheque.repository.BookRepository;
 import fr.akbarkhan.mediatheque.repository.RoleRepository;
 import fr.akbarkhan.mediatheque.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -23,6 +28,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private BookRepository bookRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -89,5 +97,45 @@ public class UserServiceImpl implements UserService {
             return false;
         }
 
+    }
+
+    @Override
+    public boolean addUserBook(UserBookDto userBookDto) {
+        MyUser user = userRepository.findById(userBookDto.getUserId()).orElse(null);
+        Book bookToAdd = bookRepository.findById(userBookDto.getBookId()).orElse(null);
+        if(user != null && bookToAdd != null) {
+            List<Book> books = user.getBookList();
+            books.add(bookToAdd);
+            user.setBookList(books);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<Book> findUserBooks(Integer userId) {
+        MyUser user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            List<Book> books = user.getBookList();
+
+            List<Book> list = books.stream().map(book -> {
+
+                MyUser creator = new MyUser();
+                creator.setFirstName(book.getCreator().getFirstName());
+                creator.setLastName(book.getCreator().getLastName());
+                creator.setEmail(book.getCreator().getEmail());
+
+                return new Book(book.getId(),
+                        book.getTitle(),
+                        book.getGenre(),
+                        book.getAuthor(),
+                        book.getYear(),
+                        book.getSummary(),
+                        creator, null);
+            }).collect(Collectors.toList());
+            return list;
+        }
+        return null;
     }
 }

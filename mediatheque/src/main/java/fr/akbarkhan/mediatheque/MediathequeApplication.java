@@ -18,61 +18,60 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
 
 @SpringBootApplication
 //@EnableAutoConfiguration(exclude = {SecurityAutoConfiguration.class})
 public class MediathequeApplication {
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	public static void main(String[] args) {
-		SpringApplication.run(MediathequeApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MediathequeApplication.class, args);
+    }
 
-//	@Bean
-//	@Transactional
-//	CommandLineRunner start(RoleRepository roleRepository, UserRepository userRepository, BookRepository bookRepository) {
-//		return args -> {
-//					roleRepository.save(new Role("ADMIN"));
-//					roleRepository.save(new Role("USER"));
-//			MyUser user = new MyUser();
-//			user.setFirstName("Laurent");
-//			user.setLastName("DOE");
-//			user.setEmail("laurent@email.com");
-//			user.setEnabled(true);
-//			user.setPassword(passwordEncoder.encode("password"));
-//			Collection<Role> roles =  new ArrayList<Role>() ;
-//			roles.add(roleRepository.findByRole("USER").orElse(null));
-//			user.setRoles(roles);
-//					userRepository.save(user);
+//    @Bean
+//    @Transactional
+//    CommandLineRunner start(RoleRepository roleRepository, UserRepository userRepository, BookRepository bookRepository) {
+//        return args -> {
+//            roleRepository.save(new Role("ADMIN"));
+//            roleRepository.save(new Role("USER"));
+//            Collection<Role> roles = new ArrayList<Role>();
+//            roles.add(roleRepository.findByRole("USER").orElse(null));
+//            List<MyUser> myUsers = List.of(
+//                    new MyUser(null, "Laurent", "LAM", "laurent@email.com",
+//                            passwordEncoder.encode("password"), roles, null, true),
+//                    new MyUser(null, "laura", "NEP", "laura@email.com",
+//                            passwordEncoder.encode("password"), roles, null, true),
+//                    new MyUser(null, "Mei", "SHO", "mei@email.com",
+//                            passwordEncoder.encode("password"), roles, null, true)
+//            );
 //
-//			MyUser laurent = userService.findByUsername(user.getEmail());
-//			Book book = new Book();
-//			book.setAuthor("KHAN");
-//			book.setSummary("Last summer night");
-//			book.setGenre("Romance");
-//			book.setTitle("Summer Story");
-//			book.setYear(2022);
-//			book.setCreator(laurent);
-//			bookRepository.save(book);
+////			users.addAll()
+//            userRepository.saveAll(myUsers);
 //
-//		};
-//	}
+//
+//            MyUser laurent = userService.findByUsername("laurent@email.com");
+//            MyUser laura = userService.findByUsername("laura@email.com");
+//            MyUser mei = userService.findByUsername("mei@email.com");
+//            List<Book> books = List.of(
+//                    new Book(null, "The Reader", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", laura, null),
+//                    new Book(null, "The Reader 2", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", mei, null),
+//                    new Book(null, "The Reader 3", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", laurent, null));
+//            bookRepository.saveAll(books);
+//
+//        };
+//    }
 
 }
-
-
 

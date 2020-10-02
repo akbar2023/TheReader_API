@@ -1,6 +1,7 @@
 package fr.akbarkhan.mediatheque.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -8,7 +9,7 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     private String title;
@@ -29,22 +30,27 @@ public class Book {
     @JoinColumn(name = "creator_id", nullable = false)
     MyUser creator;
 
+    @ManyToMany(mappedBy = "bookList")
+    private List<MyUser> users;
+
     public Book() {}
 
-    public Book(int id, String title, String genre, String author, Integer year, String summary) {
+    public Book(Integer id, String title, String genre, String author, Integer year, String summary, MyUser creator, List<MyUser> users) {
         this.id = id;
         this.title = title;
         this.genre = genre;
         this.author = author;
         this.year = year;
         this.summary = summary;
+        this.creator = creator;
+        this.users = users;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -5,6 +5,7 @@ import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
 
@@ -18,5 +19,5 @@ public interface UserService {
 
     boolean addUserBook(UserBookDto userBookDto);
 
-    List<Book> findUserBooks(Integer userId);
+    Set<BookDetailsDto> findUserBooks(Integer userId);
 }

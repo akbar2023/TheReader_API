@@ -57,7 +57,6 @@ public class MediathequeApplication {
 //                            passwordEncoder.encode("password"), roles, null, true)
 //            );
 //
-////			users.addAll()
 //            userRepository.saveAll(myUsers);
 //
 //

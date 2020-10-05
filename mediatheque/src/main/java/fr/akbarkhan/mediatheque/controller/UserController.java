@@ -1,14 +1,12 @@
 package fr.akbarkhan.mediatheque.controller;
 
 import fr.akbarkhan.mediatheque.dto.*;
-import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Set;
 
 @CrossOrigin
@@ -43,11 +41,16 @@ public class UserController {
 
     @PostMapping("/add-book")
     public boolean addBookToList(@RequestBody UserBookDto userBookDto) {
-        return userService.addUserBook(userBookDto);
+        return userService.addBookToUserList(userBookDto);
     }
 
     @GetMapping("{userId}/books")
     public Set<BookDetailsDto> getUserBookList(@PathVariable("userId") Integer userId) {
         return userService.findUserBooks(userId);
+    }
+
+    @PutMapping("/remove-book")
+    public boolean updateBookList(@RequestBody UserBookDto userBookDto) {
+        return userService.removeBookFromUserList(userBookDto);
     }
 }

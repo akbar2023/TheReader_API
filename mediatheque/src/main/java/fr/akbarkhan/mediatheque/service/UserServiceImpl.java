@@ -33,20 +33,20 @@ public class UserServiceImpl implements UserService {
     public boolean saveUser(UserRegisterDto registerDto) {
 
         Optional<MyUser> userDB = userRepository.findByEmail(registerDto.getEmail());
-            if(userDB.isEmpty()) {
-                MyUser user = new MyUser();
-                user.setFirstName(registerDto.getFirstName());
-                user.setLastName(registerDto.getLastName());
-                user.setEmail(registerDto.getEmail());
-                user.setPassword(passwordEncoder.encode(registerDto.getPassword())); // pwd encoded
-                Collection<Role> roles = new ArrayList<Role>();
-                Role role = roleRepository.findByRole("USER").orElse(null);
-                roles.add(role);
-                user.setRoles(roles);
-                user.setEnabled(true);
-                userRepository.save(user);
-                return true;
-            } else {
+        if (userDB.isEmpty()) {
+            MyUser user = new MyUser();
+            user.setFirstName(registerDto.getFirstName());
+            user.setLastName(registerDto.getLastName());
+            user.setEmail(registerDto.getEmail());
+            user.setPassword(passwordEncoder.encode(registerDto.getPassword())); // pwd encoded
+            Collection<Role> roles = new ArrayList<Role>();
+            Role role = roleRepository.findByRole("USER").orElse(null);
+            roles.add(role);
+            user.setRoles(roles);
+            user.setEnabled(true);
+            userRepository.save(user);
+            return true;
+        } else {
             return false;
         }
 
@@ -94,10 +94,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean addUserBook(UserBookDto userBookDto) {
+    public boolean addBookToUserList(UserBookDto userBookDto) {
         MyUser user = userRepository.findById(userBookDto.getUserId()).orElse(null);
         Book bookToAdd = bookRepository.findById(userBookDto.getBookId()).orElse(null);
-        if(user != null && bookToAdd != null) {
+        if (user != null && bookToAdd != null) {
             List<Book> books = user.getBookList();
             books.add(bookToAdd);
             user.setBookList(books);
@@ -105,6 +105,18 @@ public class UserServiceImpl implements UserService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean removeBookFromUserList(UserBookDto userBookDto) {
+        MyUser user = userRepository.findById(userBookDto.getUserId()).orElse(null);
+        assert user != null;
+        List<Book> bookList = user.getBookList();
+        List<Book> collect = bookList.stream()
+                .filter(book -> !book.getId().equals(userBookDto.getBookId())).collect(Collectors.toList());
+        user.setBookList(collect);
+        userRepository.save(user);
+        return true;
     }
 
     @Override

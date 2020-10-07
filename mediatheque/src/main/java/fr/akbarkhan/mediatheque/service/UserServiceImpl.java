@@ -93,16 +93,18 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    // TODO : avoid multiple add of same book
     @Override
     public boolean addBookToUserList(UserBookDto userBookDto) {
         MyUser user = userRepository.findById(userBookDto.getUserId()).orElse(null);
         Book bookToAdd = bookRepository.findById(userBookDto.getBookId()).orElse(null);
         if (user != null && bookToAdd != null) {
-            List<Book> books = user.getBookList();
-            books.add(bookToAdd);
-            user.setBookList(books);
-            userRepository.save(user);
-            return true;
+            List<Book> bookList = user.getBookList();
+            if (!bookList.contains(bookToAdd)) {
+                user.getBookList().add(bookToAdd);
+                userRepository.save(user);
+                return true;
+            }
         }
         return false;
     }

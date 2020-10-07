@@ -93,7 +93,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    // TODO : avoid multiple add of same book
     @Override
     public boolean addBookToUserList(UserBookDto userBookDto) {
         MyUser user = userRepository.findById(userBookDto.getUserId()).orElse(null);
@@ -130,7 +129,8 @@ public class UserServiceImpl implements UserService {
             return books.stream().map(book -> {
 
                 MyUser creator = book.getCreator();
-                CreatorDto creatorDto = new CreatorDto(creator.getFirstName(),
+                CreatorDto creatorDto = new CreatorDto(
+                        creator.getFirstName(),
                         creator.getLastName(),
                         creator.getEmail());
 

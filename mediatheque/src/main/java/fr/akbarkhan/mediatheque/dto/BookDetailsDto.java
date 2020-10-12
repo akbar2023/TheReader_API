@@ -1,5 +1,7 @@
 package fr.akbarkhan.mediatheque.dto;
 
+import java.util.List;
+
 public class BookDetailsDto {
 
     private Integer id;
@@ -9,13 +11,11 @@ public class BookDetailsDto {
     private String summary;
     private Integer year;
     private CreatorDto creator;
+    private List<Integer> users;
 
-    public BookDetailsDto(Integer id,
-                          String title,
-                          String author,
-                          String genre,
-                          String summary,
-                          Integer year,
+    public BookDetailsDto(Integer id, String title,
+                          String author, String genre,
+                          String summary, Integer year,
                           CreatorDto creator) {
         this.id = id;
         this.title = title;
@@ -24,6 +24,9 @@ public class BookDetailsDto {
         this.summary = summary;
         this.year = year;
         this.creator = creator;
+    }
+
+    public BookDetailsDto() {
     }
 
     public Integer getId() {
@@ -80,5 +83,13 @@ public class BookDetailsDto {
 
     public void setCreator(CreatorDto creator) {
         this.creator = creator;
+    }
+
+    public List<Integer> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<Integer> users) {
+        this.users = users;
     }
 }

@@ -35,7 +35,14 @@ public class Book {
 
     public Book() {}
 
-    public Book(Integer id, String title, String genre, String author, Integer year, String summary, MyUser creator, List<MyUser> users) {
+    public Book(Integer id,
+                String title,
+                String genre,
+                String author,
+                Integer year,
+                String summary,
+                MyUser creator,
+                List<MyUser> users) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -100,6 +107,14 @@ public class Book {
 
     public void setCreator(MyUser creator) {
         this.creator = creator;
+    }
+
+    public List<MyUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<MyUser> users) {
+        this.users = users;
     }
 
     @Override

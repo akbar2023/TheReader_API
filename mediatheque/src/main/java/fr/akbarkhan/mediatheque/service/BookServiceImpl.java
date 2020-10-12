@@ -41,17 +41,17 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDetailsDto> findAllWithCreator() {
-        List<Book> all = bookRepository.findAll();
+        List<Book> allBooks = bookRepository.findAll();
 
         List<BookDetailsDto> books = new ArrayList<>();
 
-        all.forEach(book -> {
+        allBooks.forEach(book -> {
             CreatorDto creator = new CreatorDto(
                     book.getCreator().getFirstName(),
                     book.getCreator().getLastName(),
                     book.getCreator().getEmail()
             );
-
+            List<Integer> users = book.getUsers().stream().map(MyUser::getId).collect(Collectors.toList());
             BookDetailsDto bookDetailsDto = new BookDetailsDto(
                     book.getId(),
                     book.getTitle(),
@@ -61,6 +61,7 @@ public class BookServiceImpl implements BookService {
                     book.getYear(),
                     creator
             );
+            bookDetailsDto.setUsers(users);
             books.add(bookDetailsDto);
         });
         return books;

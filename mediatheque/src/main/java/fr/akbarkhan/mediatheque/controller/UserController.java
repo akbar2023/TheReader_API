@@ -3,6 +3,8 @@ package fr.akbarkhan.mediatheque.controller;
 import fr.akbarkhan.mediatheque.dto.*;
 import fr.akbarkhan.mediatheque.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,8 +42,12 @@ public class UserController {
     }
 
     @PostMapping("/add-book")
-    public boolean addBookToList(@RequestBody UserBookDto userBookDto) {
-        return userService.addBookToUserList(userBookDto);
+    public ResponseEntity<?> addBookToList(@RequestBody UserBookDto userBookDto) {
+        if (userService.addBookToUserList(userBookDto)) {
+            return ResponseEntity.status(HttpStatus.OK).body("Book added");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     @GetMapping("{userId}/books")

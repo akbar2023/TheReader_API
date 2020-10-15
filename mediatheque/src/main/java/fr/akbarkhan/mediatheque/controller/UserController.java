@@ -3,6 +3,7 @@ package fr.akbarkhan.mediatheque.controller;
 import fr.akbarkhan.mediatheque.dto.*;
 import fr.akbarkhan.mediatheque.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -46,7 +47,7 @@ public class UserController {
         if (userService.addBookToUserList(userBookDto)) {
             return ResponseEntity.status(HttpStatus.OK).body("Book added");
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book add failed");
         }
     }
 
@@ -56,7 +57,13 @@ public class UserController {
     }
 
     @PutMapping("/remove-book")
-    public boolean updateBookList(@RequestBody UserBookDto userBookDto) {
-        return userService.removeBookFromUserList(userBookDto);
+    public ResponseEntity<?> updateBookList(@RequestBody UserBookDto userBookDto) {
+        if (userService.removeBookFromUserList(userBookDto)) {
+            HttpHeaders header = new HttpHeaders();
+            header.add("desc", "Update user's book list");
+            return ResponseEntity.status(HttpStatus.OK).headers(header).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Update book list failed");
+        }
     }
 }

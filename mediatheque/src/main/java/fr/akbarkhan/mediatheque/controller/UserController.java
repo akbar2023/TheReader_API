@@ -47,7 +47,7 @@ public class UserController {
         if (userService.addBookToUserList(userBookDto)) {
             return ResponseEntity.status(HttpStatus.OK).body("Book added");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book add failed");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Book add failed");
         }
     }
 
@@ -63,7 +63,7 @@ public class UserController {
             header.add("desc", "Update user's book list");
             return ResponseEntity.status(HttpStatus.OK).headers(header).build();
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Update book list failed");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Update book list failed");
         }
     }
 }

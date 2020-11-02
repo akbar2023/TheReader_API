@@ -21,9 +21,13 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public String createUser(@Valid @RequestBody UserRegisterDto registerDto) {
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserRegisterDto registerDto) {
         String email = registerDto.getEmail();
-        return userService.saveUser(registerDto) ? "Sign Up success" : "User " + email + " already exists";
+        if(userService.saveUser(registerDto)) {
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     @PutMapping("/update/{userId}")

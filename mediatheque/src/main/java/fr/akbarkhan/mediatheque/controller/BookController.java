@@ -5,6 +5,8 @@ import fr.akbarkhan.mediatheque.dto.BookDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,11 +42,12 @@ public class BookController {
         return bookService.findByTitle(title);
     }
 
-    // todo: change return type to BookDetailsDto
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public Book addBook(@Valid @RequestBody BookDto bookDto) {
-        return bookService.saveBook(bookDto);
+    public ResponseEntity<?> addBook(@Valid @RequestBody BookDto bookDto) {
+        return bookService.saveBook(bookDto) ?
+                ResponseEntity.status(HttpStatus.OK).build() :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @PutMapping("/{id}")

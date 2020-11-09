@@ -68,7 +68,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book saveBook(BookDto bookDto) {
+    public boolean saveBook(BookDto bookDto) {
+        // todo: improve with findByIsbn => if is null then save
         Book book = new Book();
         book.setTitle(bookDto.getTitle());
         book.setAuthor(bookDto.getAuthor());
@@ -78,7 +79,8 @@ public class BookServiceImpl implements BookService {
         Integer creatorId = bookDto.getCreatorId();
         Optional<MyUser> creator = userRepository.findById(creatorId);
         book.setCreator(creator.orElse(null));
-        return bookRepository.save(book);
+        bookRepository.save(book);
+        return true;
     }
 
     @Override

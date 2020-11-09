@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookService {
-    Book saveBook(BookDto bookDto);
+    boolean saveBook(BookDto bookDto);
 
     List<BookDetailsDto> findAllWithCreator();
 

@@ -32,15 +32,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean saveUser(UserRegisterDto registerDto) {
 
-        Optional<MyUser> userDB = userRepository.findByEmail(registerDto.getEmail());
-        if (userDB.isEmpty()) {
+        if (!userExists(registerDto)) {
             MyUser user = new MyUser();
             user.setFirstName(registerDto.getFirstName());
             user.setLastName(registerDto.getLastName());
             user.setEmail(registerDto.getEmail());
-            user.setPassword(passwordEncoder.encode(registerDto.getPassword())); // pwd encoded
+            user.setPassword(getEncoded(registerDto.getPassword())); // pwd encoded
             Collection<Role> roles = new ArrayList<Role>();
-            Role role = roleRepository.findByRole("USER").orElse(null);
+            Role role = getRoleUser("USER");
             roles.add(role);
             user.setRoles(roles);
             user.setEnabled(true);
@@ -80,9 +79,9 @@ public class UserServiceImpl implements UserService {
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());
             user.setEmail(userDto.getEmail());
-            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+            user.setPassword(getEncoded(userDto.getPassword()));
             Collection<Role> roles = new ArrayList<Role>();
-            Role role = roleRepository.findByRole(userDto.getRole()).orElse(null);
+            Role role = getRoleUser(userDto.getRole());
             roles.add(role);
             user.setRoles(roles);
             userRepository.save(user);
@@ -147,5 +146,17 @@ public class UserServiceImpl implements UserService {
             }).collect(Collectors.toSet());
         }
         return null;
+    }
+
+    private String getEncoded(String password) {
+        return passwordEncoder.encode(password);
+    }
+
+    private Role getRoleUser(String user) {
+        return roleRepository.findByRole(user).orElse(null);
+    }
+
+    private boolean userExists(UserRegisterDto registerDto) {
+        return userRepository.findByEmail(registerDto.getEmail()).isPresent();
     }
 }

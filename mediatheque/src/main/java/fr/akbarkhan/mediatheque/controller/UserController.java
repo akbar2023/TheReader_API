@@ -22,7 +22,6 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody UserRegisterDto registerDto) {
-        String email = registerDto.getEmail();
         if(userService.saveUser(registerDto)) {
             return ResponseEntity.status(HttpStatus.OK).build();
         } else {

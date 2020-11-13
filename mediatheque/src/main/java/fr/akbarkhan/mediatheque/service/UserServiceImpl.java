@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
             return true;
         }
-            return false;
+        return false;
     }
 
     @Override
@@ -132,17 +132,20 @@ public class UserServiceImpl implements UserService {
 
                 MyUser creator = book.getCreator();
                 CreatorDto creatorDto = new CreatorDto(
+                        creator.getId(),
                         creator.getFirstName(),
-                        creator.getLastName(),
-                        creator.getEmail());
+                        creator.getLastName()
+                );
 
-                return new BookDetailsDto(book.getId(),
+                return new BookDetailsDto(
+                        book.getId(),
                         book.getTitle(),
                         book.getAuthor(),
                         book.getGenre(),
                         book.getSummary(),
                         book.getYear(),
-                        creatorDto);
+                        creatorDto
+                );
             }).collect(Collectors.toSet());
         }
         return null;

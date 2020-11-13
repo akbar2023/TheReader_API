@@ -2,17 +2,21 @@ package fr.akbarkhan.mediatheque.dto;
 
 public class CreatorDto {
 
+    private Integer id;
     private String firstName;
     private String lastName;
-    private String email;
 
-    public CreatorDto(String firstName, String lastName, String email) {
+    public CreatorDto(Integer id, String firstName, String lastName) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
     }
 
     public CreatorDto() {
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -23,7 +27,5 @@ public class CreatorDto {
         return lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
+
 }

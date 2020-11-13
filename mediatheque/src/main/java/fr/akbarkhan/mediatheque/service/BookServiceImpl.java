@@ -47,9 +47,9 @@ public class BookServiceImpl implements BookService {
 
         allBooks.forEach(book -> {
             CreatorDto creator = new CreatorDto(
+                    book.getCreator().getId(),
                     book.getCreator().getFirstName(),
-                    book.getCreator().getLastName(),
-                    book.getCreator().getEmail()
+                    book.getCreator().getLastName()
             );
             List<Integer> users = book.getUsers().stream().map(MyUser::getId).collect(Collectors.toList());
             BookDetailsDto bookDetailsDto = new BookDetailsDto(

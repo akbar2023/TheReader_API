@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             myUser.getRoles().forEach(r -> {
                 authorities.add(new SimpleGrantedAuthority(r.getRole()));
             });
-            return new User(myUser.getEmail(), myUser.getPassword(), authorities);
+            return new User(myUser.getId().toString(), myUser.getPassword(), authorities);
         }
         throw new UserNotFoundException(String.format("user %s not found", username));
 

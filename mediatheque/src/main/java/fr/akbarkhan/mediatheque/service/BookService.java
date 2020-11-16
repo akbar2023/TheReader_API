@@ -14,7 +14,7 @@ public interface BookService {
 
     List<Book> findByTitle(String title);
 
-    Optional<Book> findById(int id);
+    BookDetailsDto findById(Integer id);
 
     void deleteBook(int id);
 

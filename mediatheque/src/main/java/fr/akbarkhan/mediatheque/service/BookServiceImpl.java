@@ -26,8 +26,27 @@ public class BookServiceImpl implements BookService {
     private UserRepository userRepository;
 
     @Override
-    public Optional<Book> findById(int id) {
-        return bookRepository.findById(id);
+    public BookDetailsDto findById(Integer id) {
+        Book book = bookRepository.findById(id).orElse(null);
+        if (book != null) {
+            CreatorDto creatorDto = new CreatorDto(
+                    book.getCreator().getId(),
+                    book.getCreator().getFirstName(),
+                    book.getCreator().getLastName()
+            );
+            return new BookDetailsDto(
+                    book.getId(),
+                    book.getTitle(),
+                    book.getAuthor(),
+                    book.getGenre(),
+                    book.getSummary(),
+                    book.getYear(),
+                    creatorDto
+            );
+        } else {
+            return null;
+        }
+
     }
 
     @Override

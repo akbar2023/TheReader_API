@@ -28,11 +28,15 @@ public class BookController {
         return bookService.findAllWithCreator();
     }
 
-    //todo: manage optional on services
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public Optional<Book> getById(@PathVariable("id") int id) {
-        return bookService.findById(id);
+    public ResponseEntity<?> getById(@PathVariable("id") Integer id) {
+        BookDetailsDto book = bookService.findById(id);
+        if (book != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(book);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     // todo: change return type to BookDetailsDto

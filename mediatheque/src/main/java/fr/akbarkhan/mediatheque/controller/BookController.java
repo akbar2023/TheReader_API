@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -54,11 +53,11 @@ public class BookController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public String updateBook(@Valid @RequestBody BookDto bookDto, @PathVariable("id") Integer id) {
-        bookService.updateBook(bookDto, id);
-        return "Update success!";
+    public ResponseEntity<?> updateBook(@Valid @RequestBody BookDto bookDto) {
+        return bookService.updateBook(bookDto) ?
+                ResponseEntity.status(HttpStatus.OK).build() :
+                ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
-
 }

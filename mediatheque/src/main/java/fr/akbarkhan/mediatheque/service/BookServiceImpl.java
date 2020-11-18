@@ -103,14 +103,23 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void updateBook(BookDto bookDto, Integer id) {
-        Book bookStored = bookRepository.findById(id).orElseThrow();
-        bookStored.setTitle(bookDto.getTitle());
-        bookStored.setAuthor(bookDto.getAuthor());
-        bookStored.setGenre(bookDto.getGenre());
-        bookStored.setYear(bookDto.getYear());
-        bookStored.setSummary(bookDto.getSummary());
-        bookRepository.save(bookStored);
+    public boolean updateBook(BookDto bookDto) {
+        Book bookStored = bookRepository.findById(bookDto.getId()).orElse(null);
+        MyUser creator = userRepository.findById(bookDto.getCreatorId()).orElse(null);
+        if (bookStored != null && creator != null) {
+
+            if (bookStored.getCreator().getId().equals(creator.getId())) {
+                bookStored.setTitle(bookDto.getTitle());
+                bookStored.setAuthor(bookDto.getAuthor());
+                bookStored.setGenre(bookDto.getGenre());
+                bookStored.setYear(bookDto.getYear());
+                bookStored.setSummary(bookDto.getSummary());
+                bookRepository.save(bookStored);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override

@@ -30,7 +30,7 @@ public class Book {
     @JoinColumn(name = "creator_id", nullable = false)
     MyUser creator;
 
-    @ManyToMany(mappedBy = "bookList")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "bookList")
     private List<MyUser> users;
 
     public Book() {}

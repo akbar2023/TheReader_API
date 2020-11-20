@@ -2,6 +2,7 @@ package fr.akbarkhan.mediatheque.controller;
 
 import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
+import fr.akbarkhan.mediatheque.dto.UserBookDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,12 @@ public class BookController {
         return bookService.updateBook(bookDto) ?
                 ResponseEntity.status(HttpStatus.OK).build() :
                 ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteBook(@RequestBody UserBookDto userBookDto) {
+        return bookService.deleteBook(userBookDto) ?
+                ResponseEntity.status(HttpStatus.OK).build() :
+                ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

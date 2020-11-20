@@ -2,6 +2,7 @@ package fr.akbarkhan.mediatheque.service;
 
 import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
+import fr.akbarkhan.mediatheque.dto.UserBookDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface BookService {
 
     BookDetailsDto findById(Integer id);
 
-    void deleteBook(int id);
+    boolean deleteBook(UserBookDto userBookDto);
 
     boolean updateBook(BookDto bookDto);
 }

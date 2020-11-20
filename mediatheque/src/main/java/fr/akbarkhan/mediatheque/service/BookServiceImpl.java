@@ -3,6 +3,7 @@ package fr.akbarkhan.mediatheque.service;
 import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
 import fr.akbarkhan.mediatheque.dto.CreatorDto;
+import fr.akbarkhan.mediatheque.dto.UserBookDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
 import fr.akbarkhan.mediatheque.repository.BookRepository;
@@ -123,7 +124,19 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBook(int id) {
-        bookRepository.deleteById(id);
+    public boolean deleteBook(UserBookDto userBookDto) {
+        long count1 = bookRepository.count();
+        Book bookToRemove = bookRepository.findById(userBookDto.getBookId()).orElse(null);
+        if (bookToRemove != null && bookToRemove.getCreator().getId() == userBookDto.getUserId()) {
+            List<MyUser> bookUsers = userRepository.findAll()
+                    .stream().filter(user -> user.getBookList().contains(bookToRemove)).collect(Collectors.toList());
+
+            bookUsers.forEach(user_ -> user_.getBookList().remove(bookToRemove));
+            userRepository.saveAll(bookUsers);
+            bookRepository.delete(bookToRemove);
+            return bookRepository.count() < count1;
+        }
+            return false;
+
     }
 }

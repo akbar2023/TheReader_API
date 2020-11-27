@@ -93,9 +93,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean addBookToUserList(UserBookDto userBookDto) {
-        MyUser user = userRepository.findById(userBookDto.getUserId()).orElse(null);
-        Book bookToAdd = bookRepository.findById(userBookDto.getBookId()).orElse(null);
+    public boolean addBookToUserList(Integer bookId, Integer userId) {
+        MyUser user = userRepository.findById(userId).orElse(null);
+        Book bookToAdd = bookRepository.findById(bookId).orElse(null);
         if (user != null && bookToAdd != null) {
             List<Book> bookList = user.getBookList();
             if (!bookList.contains(bookToAdd)) {
@@ -108,12 +108,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean removeBookFromUserList(UserBookDto userBookDto) {
-        MyUser user = userRepository.findById(userBookDto.getUserId()).orElse(null);
+    public boolean removeBookFromUserList(Integer bookId, Integer userId) {
+        MyUser user = userRepository.findById(userId).orElse(null);
         if (user != null) {
-            List<Book> oldList = user.getBookList();
-            List<Book> newList = oldList.stream()
-                    .filter(book -> !book.getId().equals(userBookDto.getBookId()))
+            List<Book> newList = user.getBookList().stream()
+                    .filter(book -> !book.getId().equals(bookId))
                     .collect(Collectors.toList());
             user.setBookList(newList);
             userRepository.save(user);

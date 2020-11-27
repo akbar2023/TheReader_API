@@ -40,10 +40,10 @@ public class MediathequeApplication {
         SpringApplication.run(MediathequeApplication.class, args);
     }
 
-//    @Bean
-//    @Transactional
-//    CommandLineRunner start(RoleRepository roleRepository, UserRepository userRepository, BookRepository bookRepository) {
-//        return args -> {
+    @Bean
+    @Transactional
+    CommandLineRunner start(RoleRepository roleRepository, UserRepository userRepository, BookRepository bookRepository) {
+        return args -> {
 //            roleRepository.save(new Role("ADMIN"));
 //            roleRepository.save(new Role("USER"));
 //            Collection<Role> roles = new ArrayList<Role>();
@@ -58,19 +58,18 @@ public class MediathequeApplication {
 //            );
 //
 //            userRepository.saveAll(myUsers);
-//
-//
+
+
 //            MyUser laurent = userService.findByUsername("laurent@email.com");
 //            MyUser laura = userService.findByUsername("laura@email.com");
-//            MyUser mei = userService.findByUsername("mei@email.com");
-//            List<Book> books = List.of(
-//                    new Book(null, "The Reader", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", laura, null),
-//                    new Book(null, "The Reader 2", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", mei, null),
-//                    new Book(null, "The Reader 3", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", laurent, null));
-//            bookRepository.saveAll(books);
-//
-//        };
-//    }
+            MyUser mei = userService.findByUsername("mei@email.com");
+            List<Book> books = List.of(
+                    new Book(null, "The Reader", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", mei, null),
+                    new Book(null, "The Reader 2", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", mei, null),
+                    new Book(null, "The Reader 3", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", mei, null));
+            bookRepository.saveAll(books);
+        };
+    }
 
 }
 

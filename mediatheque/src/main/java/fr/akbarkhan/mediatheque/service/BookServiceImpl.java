@@ -3,7 +3,6 @@ package fr.akbarkhan.mediatheque.service;
 import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
 import fr.akbarkhan.mediatheque.dto.CreatorDto;
-import fr.akbarkhan.mediatheque.dto.UserBookDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
 import fr.akbarkhan.mediatheque.repository.BookRepository;
@@ -88,7 +87,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean saveBook(BookDto bookDto) {
+    public boolean saveBook(BookDto bookDto, int creatorId) {
         // todo: improve with findByIsbn => if is null then save
         Book book = new Book();
         book.setTitle(bookDto.getTitle());
@@ -96,7 +95,6 @@ public class BookServiceImpl implements BookService {
         book.setGenre(bookDto.getGenre());
         book.setYear(bookDto.getYear());
         book.setSummary(bookDto.getSummary());
-        Integer creatorId = bookDto.getCreatorId();
         Optional<MyUser> creator = userRepository.findById(creatorId);
         book.setCreator(creator.orElse(null));
         bookRepository.save(book);
@@ -104,30 +102,26 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean updateBook(BookDto bookDto) {
+    public boolean updateBook(BookDto bookDto, int userId) {
         Book bookStored = bookRepository.findById(bookDto.getId()).orElse(null);
-        MyUser creator = userRepository.findById(bookDto.getCreatorId()).orElse(null);
-        if (bookStored != null && creator != null) {
 
-            if (bookStored.getCreator().getId().equals(creator.getId())) {
-                bookStored.setTitle(bookDto.getTitle());
-                bookStored.setAuthor(bookDto.getAuthor());
-                bookStored.setGenre(bookDto.getGenre());
-                bookStored.setYear(bookDto.getYear());
-                bookStored.setSummary(bookDto.getSummary());
-                bookRepository.save(bookStored);
-                return true;
-            }
+        if (bookStored != null && bookStored.getCreator().getId().equals(userId)) {
+            bookStored.setTitle(bookDto.getTitle());
+            bookStored.setAuthor(bookDto.getAuthor());
+            bookStored.setGenre(bookDto.getGenre());
+            bookStored.setYear(bookDto.getYear());
+            bookStored.setSummary(bookDto.getSummary());
+            bookRepository.save(bookStored);
+            return true;
         }
-
         return false;
     }
 
     @Override
-    public boolean deleteBook(UserBookDto userBookDto) {
+    public boolean deleteBook(int userId, int bookId) {
         long count1 = bookRepository.count();
-        Book bookToRemove = bookRepository.findById(userBookDto.getBookId()).orElse(null);
-        if (bookToRemove != null && bookToRemove.getCreator().getId() == userBookDto.getUserId()) {
+        Book bookToRemove = bookRepository.findById(bookId).orElse(null);
+        if (bookToRemove != null && bookToRemove.getCreator().getId() == userId) {
             List<MyUser> bookUsers = userRepository.findAll()
                     .stream().filter(user -> user.getBookList().contains(bookToRemove)).collect(Collectors.toList());
 
@@ -136,7 +130,7 @@ public class BookServiceImpl implements BookService {
             bookRepository.delete(bookToRemove);
             return bookRepository.count() < count1;
         }
-            return false;
+        return false;
 
     }
 }

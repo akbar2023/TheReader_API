@@ -2,7 +2,6 @@ package fr.akbarkhan.mediatheque.controller;
 
 import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
-import fr.akbarkhan.mediatheque.dto.UserBookDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @CrossOrigin
@@ -48,24 +48,31 @@ public class BookController {
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public ResponseEntity<?> addBook(@Valid @RequestBody BookDto bookDto) {
-        return bookService.saveBook(bookDto) ?
+    public ResponseEntity<?> addBook(@Valid @RequestBody BookDto bookDto, Principal principal) {
+        int creatorId = getUserIdFromToken(principal);
+        return bookService.saveBook(bookDto, creatorId) ?
                 ResponseEntity.status(HttpStatus.OK).build() :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public ResponseEntity<?> updateBook(@Valid @RequestBody BookDto bookDto) {
-        return bookService.updateBook(bookDto) ?
+    public ResponseEntity<?> updateBook(@Valid @RequestBody BookDto bookDto, Principal principal) {
+        int userId = getUserIdFromToken(principal);
+        return bookService.updateBook(bookDto, userId) ?
                 ResponseEntity.status(HttpStatus.OK).build() :
                 ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
-    @DeleteMapping
-    public ResponseEntity<?> deleteBook(@RequestBody UserBookDto userBookDto) {
-        return bookService.deleteBook(userBookDto) ?
+    @DeleteMapping("/{bookId}")
+    public ResponseEntity<?> deleteBook(@PathVariable("bookId") Integer bookId, Principal principal) {
+        int userId = getUserIdFromToken(principal);
+        return bookService.deleteBook(userId, bookId) ?
                 ResponseEntity.status(HttpStatus.OK).build() :
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+    }
+
+    private int getUserIdFromToken(Principal principal) {
+        return Integer.parseInt(principal.getName());
     }
 }

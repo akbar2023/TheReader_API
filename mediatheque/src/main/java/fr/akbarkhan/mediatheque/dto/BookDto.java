@@ -27,9 +27,6 @@ public class BookDto {
     @Size(min = 10, max = 255)
     private String summary;
 
-    @NotNull
-    private Integer creatorId;
-
     public BookDto() {
     }
 
@@ -45,7 +42,6 @@ public class BookDto {
         this.author = author;
         this.year = year;
         this.summary = summary;
-        this.creatorId = creatorId;
     }
 
     public int getId() {
@@ -96,13 +92,6 @@ public class BookDto {
         this.summary = summary;
     }
 
-    public Integer getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(Integer creatorId) {
-        this.creatorId = creatorId;
-    }
 
     @Override
     public String toString() {
@@ -112,8 +101,7 @@ public class BookDto {
                 ", genre='" + genre + '\'' +
                 ", author='" + author + '\'' +
                 ", year=" + year +
-                ", summary='" + summary + '\'' +
-                ", creatorId=" + creatorId +
+                ", summary='" + summary +
                 '}';
     }
 }

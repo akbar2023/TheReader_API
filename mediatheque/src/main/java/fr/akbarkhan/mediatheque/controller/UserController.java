@@ -3,13 +3,13 @@ package fr.akbarkhan.mediatheque.controller;
 import fr.akbarkhan.mediatheque.dto.*;
 import fr.akbarkhan.mediatheque.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Set;
 
 @CrossOrigin
@@ -45,26 +45,33 @@ public class UserController {
         return userService.findByEmail(email);
     }
 
-    @PostMapping("/add-book")
-    public ResponseEntity<?> addBookToList(@RequestBody UserBookDto userBookDto) {
-        if (userService.addBookToUserList(userBookDto)) {
+    @PostMapping("/add-to-list/{bookId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
+    public ResponseEntity<?> addBookToList(@PathVariable("bookId") Integer bookId, Principal principal) {
+        Integer userId = getUserIdFromToken(principal);
+        if (userService.addBookToUserList(bookId, userId)) {
             return ResponseEntity.status(HttpStatus.OK).body("Book added");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Book add failed");
         }
     }
 
+    private Integer getUserIdFromToken(Principal principal) {
+        return Integer.parseInt(principal.getName());
+    }
+
     @GetMapping("{userId}/books")
+    @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
     public Set<BookDetailsDto> getUserBookList(@PathVariable("userId") Integer userId) {
         return userService.findUserBooks(userId);
     }
 
-    @PutMapping("/remove-book")
-    public ResponseEntity<?> updateBookList(@RequestBody UserBookDto userBookDto) {
-        if (userService.removeBookFromUserList(userBookDto)) {
-            HttpHeaders header = new HttpHeaders();
-            header.add("desc", "Update user's book list");
-            return ResponseEntity.status(HttpStatus.OK).headers(header).build();
+    @PutMapping("/remove-book/{bookId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
+    public ResponseEntity<?> updateBookList(@PathVariable("bookId") Integer bookId, Principal principal) {
+        Integer userId = getUserIdFromToken(principal);
+        if (userService.removeBookFromUserList(bookId, userId)) {
+            return ResponseEntity.status(HttpStatus.OK).body("book list update ok");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Update book list failed");
         }

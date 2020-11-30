@@ -80,10 +80,10 @@ public class UserServiceImpl implements UserService {
             user.setLastName(userDto.getLastName());
             user.setEmail(userDto.getEmail());
             user.setPassword(getEncoded(userDto.getPassword()));
-            Collection<Role> roles = new ArrayList<Role>();
-            Role role = getRoleUser(userDto.getRole());
-            roles.add(role);
-            user.setRoles(roles);
+//            Collection<Role> roles = new ArrayList<Role>();
+//            Role role = getRoleUser(userDto.getRole());
+//            roles.add(role);
+//            user.setRoles(roles);
             userRepository.save(user);
             return true;
         } else {

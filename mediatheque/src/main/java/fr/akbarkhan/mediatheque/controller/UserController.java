@@ -14,13 +14,13 @@ import java.util.Set;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/user/")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("register")
     public ResponseEntity<?> createUser(@Valid @RequestBody UserRegisterDto registerDto) {
         if(userService.saveUser(registerDto)) {
             return ResponseEntity.status(HttpStatus.OK).build();
@@ -29,23 +29,27 @@ public class UserController {
         }
     }
 
-    @PutMapping("/update/{userId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public String updateUser(@Valid @RequestBody UserDto userDto, @PathVariable("userId") int userId) {
+    // todo : improve security to let a user update his account info
+    @PutMapping("update")
+    @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
+    public ResponseEntity<?> updateUser(@Valid @RequestBody UserDto userDto, Principal principal) {
+        Integer userId = getUserIdFromToken(principal);
         if (userService.updateUser(userDto, userId)) {
-            return String.format("user %s updated", userDto.getEmail());
+            String message = String.format("user %s updated", userDto.getEmail());
+            return ResponseEntity.status(HttpStatus.OK).body(message);
         } else {
-            return String.format("user %s update error", userDto.getEmail());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
 
-    @GetMapping("/{email}")
+    // todo : Not send user id
+    @GetMapping("{email}")
     @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
     public ConnectedUserDto getUserDetails(@PathVariable("email") String email) {
         return userService.findByEmail(email);
     }
 
-    @PostMapping("/add-to-list/{bookId}")
+    @PostMapping("add-to-list/{bookId}")
     @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
     public ResponseEntity<?> addBookToList(@PathVariable("bookId") Integer bookId, Principal principal) {
         Integer userId = getUserIdFromToken(principal);
@@ -56,17 +60,14 @@ public class UserController {
         }
     }
 
-    private Integer getUserIdFromToken(Principal principal) {
-        return Integer.parseInt(principal.getName());
-    }
-
-    @GetMapping("{userId}/books")
+    @GetMapping("books")
     @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
-    public Set<BookDetailsDto> getUserBookList(@PathVariable("userId") Integer userId) {
+    public Set<BookDetailsDto> getUserBookList(Principal principal) {
+        Integer userId = getUserIdFromToken(principal);
         return userService.findUserBooks(userId);
     }
 
-    @PutMapping("/remove-book/{bookId}")
+    @PutMapping("remove-book/{bookId}")
     @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
     public ResponseEntity<?> updateBookList(@PathVariable("bookId") Integer bookId, Principal principal) {
         Integer userId = getUserIdFromToken(principal);
@@ -75,5 +76,9 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Update book list failed");
         }
+    }
+
+    private Integer getUserIdFromToken(Principal principal) {
+        return Integer.parseInt(principal.getName());
     }
 }

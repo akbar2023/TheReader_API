@@ -58,14 +58,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ConnectedUserDto findByEmail(String username) {
-        Optional<MyUser> user = userRepository.findByEmail(username);
+    public ConnectedUserDto findById(Integer id) {
+        MyUser user = userRepository.findById(id).orElse(null);
         ConnectedUserDto detailsDto = new ConnectedUserDto();
-        if (user.isPresent()) {
-            detailsDto.setId(user.get().getId());
-            detailsDto.setFirstName(user.get().getFirstName());
-            detailsDto.setLastName(user.get().getLastName());
-            detailsDto.setEmail(user.get().getEmail());
+        if (user != null) {
+            detailsDto.setId(user.getId());
+            detailsDto.setFirstName(user.getFirstName());
+            detailsDto.setLastName(user.getLastName());
+            detailsDto.setEmail(user.getEmail());
             return detailsDto;
         } else {
             return null;

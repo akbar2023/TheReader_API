@@ -1,10 +1,5 @@
 package fr.akbarkhan.mediatheque.dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
 public class ConnectedUserDto {
 
     private Integer id;
@@ -12,11 +7,6 @@ public class ConnectedUserDto {
     private String lastName;
     private String email;
 
-    public ConnectedUserDto(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-    }
 
     public ConnectedUserDto() {
     }

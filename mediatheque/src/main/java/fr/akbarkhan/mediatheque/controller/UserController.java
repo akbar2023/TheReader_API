@@ -42,11 +42,16 @@ public class UserController {
         }
     }
 
-    // todo : Not send user id
-    @GetMapping("{email}")
+    @GetMapping("info")
     @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
-    public ConnectedUserDto getUserDetails(@PathVariable("email") String email) {
-        return userService.findByEmail(email);
+    public ResponseEntity<?> getUserDetails(Principal principal) {
+        Integer userId = getUserIdFromToken(principal);
+        ConnectedUserDto byId = userService.findById(userId);
+        if (byId != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(byId);
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
     }
 
     @PostMapping("add-to-list/{bookId}")

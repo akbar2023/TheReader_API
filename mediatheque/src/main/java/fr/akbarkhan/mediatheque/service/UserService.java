@@ -13,9 +13,9 @@ public interface UserService {
 
     MyUser findByUsername(String username);
 
-    ConnectedUserDto findByEmail(String email);
+    ConnectedUserDto findById(Integer id);
 
-    boolean updateUser(UserDto userDto, int id);
+    boolean updateUser(UserDto userDto, int userId);
 
     boolean addBookToUserList(Integer bookId, Integer userId);
 

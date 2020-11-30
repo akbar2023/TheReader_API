@@ -23,7 +23,7 @@ public class Book {
     @Column(nullable = false)
     private Integer year;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000)
     private String summary;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)

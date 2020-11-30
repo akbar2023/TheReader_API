@@ -24,7 +24,7 @@ public class UpdateBookDto {
     private Integer year;
 
     @NotBlank
-    @Size(min = 10, max = 255)
+    @Size(min = 10, max = 1000)
     private String summary;
 
     public UpdateBookDto() {

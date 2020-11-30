@@ -44,24 +44,24 @@ public class MediathequeApplication {
     @Transactional
     CommandLineRunner start(RoleRepository roleRepository, UserRepository userRepository, BookRepository bookRepository) {
         return args -> {
-//            roleRepository.save(new Role("ADMIN"));
-//            roleRepository.save(new Role("USER"));
-//            Collection<Role> roles = new ArrayList<Role>();
-//            roles.add(roleRepository.findByRole("USER").orElse(null));
-//            List<MyUser> myUsers = List.of(
-//                    new MyUser(null, "Laurent", "LAM", "laurent@email.com",
-//                            passwordEncoder.encode("password"), roles, null, true),
-//                    new MyUser(null, "laura", "NEP", "laura@email.com",
-//                            passwordEncoder.encode("password"), roles, null, true),
-//                    new MyUser(null, "Mei", "SHO", "mei@email.com",
-//                            passwordEncoder.encode("password"), roles, null, true)
-//            );
-//
-//            userRepository.saveAll(myUsers);
+            roleRepository.save(new Role("ADMIN"));
+            roleRepository.save(new Role("USER"));
+            Collection<Role> roles = new ArrayList<Role>();
+            roles.add(roleRepository.findByRole("USER").orElse(null));
+            List<MyUser> myUsers = List.of(
+                    new MyUser(null, "Laurent", "LAM", "laurent@email.com",
+                            passwordEncoder.encode("password"), roles, null, true),
+                    new MyUser(null, "laura", "NEP", "laura@email.com",
+                            passwordEncoder.encode("password"), roles, null, true),
+                    new MyUser(null, "Satsuki", "Kusakabe", "satsuki@email.com",
+                            passwordEncoder.encode("password"), roles, null, true)
+            );
+
+            userRepository.saveAll(myUsers);
 
 
-//            MyUser laurent = userService.findByUsername("laurent@email.com");
-//            MyUser laura = userService.findByUsername("laura@email.com");
+            MyUser laurent = userService.findByUsername("laurent@email.com");
+            MyUser laura = userService.findByUsername("laura@email.com");
             MyUser satsuki = userService.findByUsername("satsuki@email.com");
             List<Book> books = List.of(
                     new Book(null, "The Reader", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", satsuki, null),

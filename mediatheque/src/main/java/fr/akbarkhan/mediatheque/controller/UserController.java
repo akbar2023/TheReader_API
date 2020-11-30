@@ -74,7 +74,7 @@ public class UserController {
         if (userService.removeBookFromUserList(bookId, userId)) {
             return ResponseEntity.status(HttpStatus.OK).body("book list update ok");
         } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Update book list failed");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
     }
 

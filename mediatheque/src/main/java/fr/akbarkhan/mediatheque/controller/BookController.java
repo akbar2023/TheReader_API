@@ -25,7 +25,7 @@ public class BookController {
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public List<BookDetailsDto> getAllBooks() {
-        return bookService.findAllWithCreator();
+        return bookService.getAllBooks();
     }
 
     @GetMapping("/{id}")

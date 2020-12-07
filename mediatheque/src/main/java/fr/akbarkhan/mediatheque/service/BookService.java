@@ -9,7 +9,7 @@ import java.util.List;
 public interface BookService {
     boolean saveBook(BookDto bookDto, int creatorId);
 
-    List<BookDetailsDto> findAllWithCreator();
+    List<BookDetailsDto> getAllBooks();
 
     List<Book> findByTitle(String title);
 

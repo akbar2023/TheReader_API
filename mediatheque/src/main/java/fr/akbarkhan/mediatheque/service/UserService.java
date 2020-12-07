@@ -17,9 +17,9 @@ public interface UserService {
 
     boolean updateUser(UserDto userDto, int userId);
 
-    boolean addBookToUserList(Integer bookId, Integer userId);
+    boolean addBookToList(Integer bookId, Integer userId);
 
-    Set<BookDetailsDto> findUserBooks(Integer userId);
+    Set<BookDetailsDto> getBookList(Integer userId);
 
-    boolean removeBookFromUserList(Integer bookId, Integer userId);
+    boolean removeBookFromList(Integer bookId, Integer userId);
 }

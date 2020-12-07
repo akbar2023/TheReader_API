@@ -58,7 +58,7 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
     public ResponseEntity<?> addBookToList(@PathVariable("bookId") Integer bookId, Principal principal) {
         Integer userId = getUserIdFromToken(principal);
-        if (userService.addBookToUserList(bookId, userId)) {
+        if (userService.addBookToList(bookId, userId)) {
             return ResponseEntity.status(HttpStatus.OK).body("Book added");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Book add failed");
@@ -67,16 +67,16 @@ public class UserController {
 
     @GetMapping("books")
     @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
-    public Set<BookDetailsDto> getUserBookList(Principal principal) {
+    public Set<BookDetailsDto> getUsersBookList(Principal principal) {
         Integer userId = getUserIdFromToken(principal);
-        return userService.findUserBooks(userId);
+        return userService.getBookList(userId);
     }
 
     @PutMapping("remove-book/{bookId}")
     @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
     public ResponseEntity<?> updateBookList(@PathVariable("bookId") Integer bookId, Principal principal) {
         Integer userId = getUserIdFromToken(principal);
-        if (userService.removeBookFromUserList(bookId, userId)) {
+        if (userService.removeBookFromList(bookId, userId)) {
             return ResponseEntity.status(HttpStatus.OK).body("book list update ok");
         } else {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();

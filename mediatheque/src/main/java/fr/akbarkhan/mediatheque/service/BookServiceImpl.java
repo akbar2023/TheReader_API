@@ -59,7 +59,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDetailsDto> findAllWithCreator() {
+    public List<BookDetailsDto> getAllBooks() {
         List<Book> allBooks = bookRepository.findAll();
 
         List<BookDetailsDto> books = new ArrayList<>();

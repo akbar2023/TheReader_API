@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean addBookToUserList(Integer bookId, Integer userId) {
+    public boolean addBookToList(Integer bookId, Integer userId) {
         MyUser user = userRepository.findById(userId).orElse(null);
         Book bookToAdd = bookRepository.findById(bookId).orElse(null);
         if (user != null && bookToAdd != null) {
@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean removeBookFromUserList(Integer bookId, Integer userId) {
+    public boolean removeBookFromList(Integer bookId, Integer userId) {
         MyUser user = userRepository.findById(userId).orElse(null);
         if (user != null) {
             List<Book> newList = user.getBookList().stream()
@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Set<BookDetailsDto> findUserBooks(Integer userId) {
+    public Set<BookDetailsDto> getBookList(Integer userId) {
         MyUser user = userRepository.findById(userId).orElse(null);
         if (user != null) {
             List<Book> books = user.getBookList();

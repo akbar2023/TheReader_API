@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserService {
                         creator.getLastName()
                 );
 
-                return new BookDetailsDto(
+                BookDetailsDto bookDetailsDto = new BookDetailsDto(
                         book.getId(),
                         book.getTitle(),
                         book.getAuthor(),
@@ -145,6 +145,9 @@ public class UserServiceImpl implements UserService {
                         book.getYear(),
                         creatorDto
                 );
+                List<Integer> usersId = book.getUsers().stream().map(MyUser::getId).collect(Collectors.toList());
+                bookDetailsDto.setUsers(usersId);
+                return bookDetailsDto;
             }).collect(Collectors.toSet());
         }
         return null;

@@ -62,5 +62,15 @@ public class UserBookServiceImpl implements UserBookService {
         return false;
     }
 
+    @Override
+    public boolean deleteReading(Integer userId, int readingId) {
+        UserBook userBook = userBookRepository.findById(readingId).orElse(null);
+        if(userBook != null && userBook.getReader().getId().equals(userId)) {
+            userBookRepository.deleteById(readingId);
+            return true;
+        }
+        return false;
+    }
+
 
 }

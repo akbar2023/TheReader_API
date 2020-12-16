@@ -15,7 +15,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/reading")
+@RequestMapping("/api/reading/")
 public class UserBookController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class UserBookController {
     @Autowired
     private UserBookServiceImpl userBookService;
 
-    @PostMapping("/{bookId}")
+    @PostMapping("{bookId}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> addReading(@PathVariable("bookId") Integer bookId, Principal principal) {
         int userId = methods.getUserIdFromToken(principal);
@@ -43,6 +43,13 @@ public class UserBookController {
     public ResponseEntity<?> updateReadingStatus(Principal principal, @Valid @RequestBody ReadingDto readingDto) {
         Integer userId = methods.getUserIdFromToken(principal);
         return methods.getResponseEntity(userBookService.updateReading(userId, readingDto));
+    }
+
+    @DeleteMapping("{readingId}")
+    @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
+    public ResponseEntity<?> deleteReading(Principal principal, @PathVariable("readingId") int readingId) {
+        Integer userId = methods.getUserIdFromToken(principal);
+        return methods.getResponseEntity(userBookService.deleteReading(userId, readingId));
     }
 
 

@@ -12,4 +12,6 @@ public interface UserBookService {
     List<ReadingBookDto> getReadingBooks(int userId);
 
     boolean updateReading(Integer userId, ReadingDto readingDto);
+
+    boolean deleteReading(Integer userId, int readingId);
 }

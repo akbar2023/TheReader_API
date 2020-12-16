@@ -62,12 +62,12 @@ public class MediathequeApplication {
 //
 //            MyUser laurent = userService.findByUsername("laurent@email.com");
 //            MyUser laura = userService.findByUsername("laura@email.com");
-            MyUser satsuki = userService.findByUsername("satsuki@email.com");
-            List<Book> books = List.of(
-                    new Book(null, "The Reader", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", satsuki, null),
-                    new Book(null, "The Reader 2", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", satsuki, null),
-                    new Book(null, "The Reader 3", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", satsuki, null));
-            bookRepository.saveAll(books);
+//            MyUser satsuki = userService.findByUsername("satsuki@email.com");
+//            List<Book> books = List.of(
+//                    new Book(null, "The Reader", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", satsuki, null),
+//                    new Book(null, "The Reader 2", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", satsuki, null),
+//                    new Book(null, "The Reader 3", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", satsuki, null));
+//            bookRepository.saveAll(books);
         };
     }
 

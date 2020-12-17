@@ -1,7 +1,7 @@
 package fr.akbarkhan.mediatheque.service;
 
-import fr.akbarkhan.mediatheque.dto.ReadingBookDto;
 import fr.akbarkhan.mediatheque.dto.ReadingDto;
+import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ public interface UserBookService {
 
     boolean addReadingBook(int bookId, int userId);
 
-    List<ReadingBookDto> getReadingBooks(int userId);
+    List<ReadingDto> getReadingBooks(int userId);
 
-    boolean updateReading(Integer userId, ReadingDto readingDto);
+    boolean updateReading(Integer userId, ReadingStatusDto readingStatusDto);
 
     boolean deleteReading(Integer userId, int readingId);
 }

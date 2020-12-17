@@ -1,7 +1,7 @@
 package fr.akbarkhan.mediatheque.service;
 
-import fr.akbarkhan.mediatheque.dto.ReadingBookDto;
 import fr.akbarkhan.mediatheque.dto.ReadingDto;
+import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
 import fr.akbarkhan.mediatheque.entity.UserBook;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,22 +39,22 @@ public class UserBookServiceImpl implements UserBookService {
     }
 
     @Override
-    public List<ReadingBookDto> getReadingBooks(int userId) {
+    public List<ReadingDto> getReadingBooks(int userId) {
         List<UserBook> all = userBookRepository.findAllByReaderId(userId);
         return all.stream().map(userBook ->
-                new ReadingBookDto(userBook.getId(),
+                new ReadingDto(userBook.getId(),
                         userBook.getBook().getId(),
                         userBook.getBook().getAuthor(),
                         userBook.getBook().getTitle(),
-                        userBook.isRead())
-        ).collect(Collectors.toList());
+                        userBook.isRead()))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public boolean updateReading(Integer userId, ReadingDto readingDto) {
-        UserBook userBook = userBookRepository.findById(readingDto.getId()).orElse(null);
+    public boolean updateReading(Integer userId, ReadingStatusDto readingStatusDto) {
+        UserBook userBook = userBookRepository.findById(readingStatusDto.getId()).orElse(null);
         if (userBook != null && userBook.getReader().getId().equals(userId)) {
-            userBook.setRead(readingDto.isRead());
+            userBook.setRead(readingStatusDto.isRead());
             userBookRepository.save(userBook);
             return true;
         }
@@ -65,7 +64,7 @@ public class UserBookServiceImpl implements UserBookService {
     @Override
     public boolean deleteReading(Integer userId, int readingId) {
         UserBook userBook = userBookRepository.findById(readingId).orElse(null);
-        if(userBook != null && userBook.getReader().getId().equals(userId)) {
+        if (userBook != null && userBook.getReader().getId().equals(userId)) {
             userBookRepository.deleteById(readingId);
             return true;
         }

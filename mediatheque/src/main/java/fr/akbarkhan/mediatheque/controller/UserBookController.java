@@ -1,8 +1,8 @@
 package fr.akbarkhan.mediatheque.controller;
 
 import fr.akbarkhan.mediatheque.controller.Reusable.Methods;
-import fr.akbarkhan.mediatheque.dto.ReadingBookDto;
 import fr.akbarkhan.mediatheque.dto.ReadingDto;
+import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 import fr.akbarkhan.mediatheque.service.UserBookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,16 +33,16 @@ public class UserBookController {
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public List<ReadingBookDto> getReadings(Principal principal) {
+    public List<ReadingDto> getReadings(Principal principal) {
         int userId = methods.getUserIdFromToken(principal);
         return userBookService.getReadingBooks(userId);
     }
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public ResponseEntity<?> updateReadingStatus(Principal principal, @Valid @RequestBody ReadingDto readingDto) {
+    public ResponseEntity<?> updateReadingStatus(Principal principal, @Valid @RequestBody ReadingStatusDto readingStatusDto) {
         Integer userId = methods.getUserIdFromToken(principal);
-        return methods.getResponseEntity(userBookService.updateReading(userId, readingDto));
+        return methods.getResponseEntity(userBookService.updateReading(userId, readingStatusDto));
     }
 
     @DeleteMapping("{readingId}")

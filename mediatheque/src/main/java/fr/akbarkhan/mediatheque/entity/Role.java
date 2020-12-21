@@ -13,17 +13,11 @@ public class Role {
 
     private String role;
 
+/* ***** not necessary *****
     @ManyToMany(mappedBy = "roles")
     private Collection<MyUser> users;
+*/
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "roles_privileges",
-//            joinColumns = @JoinColumn(
-//                    name = "role_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(
-//                    name = "privilege_id", referencedColumnName = "id"))
-//    private Collection<Privilege> privileges;
 
     public Role(String role) {
         this.role = role;

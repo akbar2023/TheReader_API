@@ -5,7 +5,9 @@ import fr.akbarkhan.mediatheque.dto.BookDto;
 import fr.akbarkhan.mediatheque.dto.CreatorDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
+import fr.akbarkhan.mediatheque.entity.UserBook;
 import fr.akbarkhan.mediatheque.repository.BookRepository;
+import fr.akbarkhan.mediatheque.repository.UserBookRepository;
 import fr.akbarkhan.mediatheque.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,9 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private UserBookRepository userBookRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -119,18 +124,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean deleteBook(int userId, int bookId) {
-        long count1 = bookRepository.count();
-        Book bookToRemove = bookRepository.findById(bookId).orElse(null);
-        if (bookToRemove != null && bookToRemove.getCreator().getId() == userId) {
-            List<MyUser> bookUsers = userRepository.findAll()
-                    .stream().filter(user -> user.getBookList().contains(bookToRemove)).collect(Collectors.toList());
-
-            bookUsers.forEach(user_ -> user_.getBookList().remove(bookToRemove));
-            userRepository.saveAll(bookUsers);
-            bookRepository.delete(bookToRemove);
-            return bookRepository.count() < count1;
+        Book bookToDelete = bookRepository.findById(bookId).orElse(null);
+        if (bookToDelete != null && bookToDelete.getCreator().getId().equals(userId)) {
+            List<UserBook> allBookReadings = userBookRepository.findAllByBookId(bookId);
+            userBookRepository.deleteAll(allBookReadings);
+            bookRepository.deleteById(bookId);
+            return true;
         }
         return false;
-
     }
 }

@@ -6,6 +6,8 @@ public class ReadingDto {
 
     private int bookId;
 
+    private int creatorId;
+
     private String author;
 
     private String title;
@@ -15,9 +17,10 @@ public class ReadingDto {
     public ReadingDto() {
     }
 
-    public ReadingDto(int readingId, int bookId, String author, String title, boolean isRead) {
+    public ReadingDto(int readingId, int bookId, int creatorId, String author, String title, boolean isRead) {
         this.readingId = readingId;
         this.bookId = bookId;
+        this.creatorId = creatorId;
         this.author = author;
         this.title = title;
         this.isRead = isRead;
@@ -37,6 +40,14 @@ public class ReadingDto {
 
     public void setBookId(int bookId) {
         this.bookId = bookId;
+    }
+
+    public int getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(int creatorId) {
+        this.creatorId = creatorId;
     }
 
     public String getAuthor() {

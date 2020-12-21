@@ -1,5 +1,6 @@
 package fr.akbarkhan.mediatheque.service;
 
+import fr.akbarkhan.mediatheque.dto.ReadingBookLiteDto;
 import fr.akbarkhan.mediatheque.dto.ReadingDto;
 import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 import fr.akbarkhan.mediatheque.entity.Book;
@@ -44,6 +45,7 @@ public class UserBookServiceImpl implements UserBookService {
         return all.stream().map(userBook ->
                 new ReadingDto(userBook.getId(),
                         userBook.getBook().getId(),
+                        userBook.getBook().getCreator().getId(),
                         userBook.getBook().getAuthor(),
                         userBook.getBook().getTitle(),
                         userBook.isRead()))
@@ -69,6 +71,13 @@ public class UserBookServiceImpl implements UserBookService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Integer> getReadingIdBookId(Integer readerId) {
+//        return userBookRepository.findReadingBooksIdByReaderId(readerId).stream()
+//                .map(ReadingBookLiteDto::new).collect(Collectors.toList());
+        return userBookRepository.findReadingBooksIdByReaderId(readerId);
     }
 
 

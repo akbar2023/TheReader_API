@@ -16,8 +16,8 @@ public class UserRegisterDto {
 
     @NotBlank
     @Email
-    @Size(min = 4, max = 100)
-    private String email; // must be an email
+    @Size(min = 5, max = 100)
+    private String email;
 
     @NotBlank
     @Size(min = 4, max = 20)

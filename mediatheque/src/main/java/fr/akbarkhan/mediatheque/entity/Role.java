@@ -11,6 +11,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @Column(nullable = false, length = 50)
     private String role;
 
 /* ***** not necessary *****

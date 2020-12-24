@@ -1,12 +1,9 @@
 package fr.akbarkhan.mediatheque.dto;
 
-import fr.akbarkhan.mediatheque.entity.Role;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Collection;
 
 public class UserDto {
 

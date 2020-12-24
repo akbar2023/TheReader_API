@@ -1,6 +1,5 @@
 package fr.akbarkhan.mediatheque.service;
 
-import fr.akbarkhan.mediatheque.dto.ReadingBookLiteDto;
 import fr.akbarkhan.mediatheque.dto.ReadingDto;
 import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 import fr.akbarkhan.mediatheque.entity.Book;
@@ -64,10 +63,10 @@ public class UserBookServiceImpl implements UserBookService {
     }
 
     @Override
-    public boolean deleteReading(Integer userId, int readingId) {
-        UserBook userBook = userBookRepository.findById(readingId).orElse(null);
-        if (userBook != null && userBook.getReader().getId().equals(userId)) {
-            userBookRepository.deleteById(readingId);
+    public boolean deleteReading(Integer userId, int bookId) {
+        List<UserBook> readings = userBookRepository.findReadingsWithBookIdReaderId(userId, bookId);
+        if (readings != null) {
+            userBookRepository.deleteAll(readings);
             return true;
         }
         return false;
@@ -75,8 +74,6 @@ public class UserBookServiceImpl implements UserBookService {
 
     @Override
     public List<Integer> getReadingIdBookId(Integer readerId) {
-//        return userBookRepository.findReadingBooksIdByReaderId(readerId).stream()
-//                .map(ReadingBookLiteDto::new).collect(Collectors.toList());
         return userBookRepository.findReadingBooksIdByReaderId(readerId);
     }
 

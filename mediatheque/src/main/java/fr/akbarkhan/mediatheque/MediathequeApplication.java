@@ -3,8 +3,10 @@ package fr.akbarkhan.mediatheque;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
 import fr.akbarkhan.mediatheque.entity.Role;
+import fr.akbarkhan.mediatheque.entity.UserBook;
 import fr.akbarkhan.mediatheque.repository.BookRepository;
 import fr.akbarkhan.mediatheque.repository.RoleRepository;
+import fr.akbarkhan.mediatheque.repository.UserBookRepository;
 import fr.akbarkhan.mediatheque.repository.UserRepository;
 import fr.akbarkhan.mediatheque.service.UserService;
 import org.checkerframework.checker.units.qual.A;
@@ -42,7 +44,7 @@ public class MediathequeApplication {
 
     @Bean
     @Transactional
-    CommandLineRunner start(RoleRepository roleRepository, UserRepository userRepository, BookRepository bookRepository) {
+    CommandLineRunner start(RoleRepository roleRepository, UserRepository userRepository, BookRepository bookRepository, UserBookRepository userBookRepository) {
         return args -> {
             roleRepository.save(new Role("ADMIN"));
             roleRepository.save(new Role("USER"));
@@ -64,10 +66,16 @@ public class MediathequeApplication {
             MyUser laura = userService.findByUsername("laura@email.com");
             MyUser satsuki = userService.findByUsername("satsuki@email.com");
             List<Book> books = List.of(
-                    new Book(null, "The Reader", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", satsuki, null),
-                    new Book(null, "The Reader 2", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", satsuki, null),
-                    new Book(null, "The Reader 3", "Comedy", "KHAN Akbar", 2012, "The little pretty girl is reading", satsuki, null));
+                    new Book(null, "The Reader", "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null),
+                    new Book(null, "The Reader 2", "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null),
+                    new Book(null, "The Reader 3", "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null),
+                    new Book(null, "The Reader 4", "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null),
+                    new Book(null, "The Reader 5", "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null)
+            );
             bookRepository.saveAll(books);
+            userBookRepository.save(new UserBook(books.get(0),satsuki, true));
+            userBookRepository.save(new UserBook(books.get(1),satsuki, true));
+            userBookRepository.save(new UserBook(books.get(2),satsuki, true));
         };
     }
 

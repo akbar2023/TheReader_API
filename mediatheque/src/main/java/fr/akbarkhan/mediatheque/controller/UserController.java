@@ -65,6 +65,7 @@ public class UserController {
         }
     }
 
+    // todo: remove
     @GetMapping("books")
     @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
     public Set<BookDetailsDto> getUsersBookList(Principal principal) {

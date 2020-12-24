@@ -1,6 +1,5 @@
 package fr.akbarkhan.mediatheque.service;
 
-import fr.akbarkhan.mediatheque.dto.ReadingBookLiteDto;
 import fr.akbarkhan.mediatheque.dto.ReadingDto;
 import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 

@@ -48,5 +48,5 @@ public class UserController {
         }
     }
 
-    // todo : Implement User deletion
+    // todo : Implement User deletion (need to improve cascade config)
 }

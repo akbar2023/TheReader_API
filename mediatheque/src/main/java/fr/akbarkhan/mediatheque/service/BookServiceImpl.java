@@ -2,6 +2,7 @@ package fr.akbarkhan.mediatheque.service;
 
 import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
+import fr.akbarkhan.mediatheque.dto.BookLiteDto;
 import fr.akbarkhan.mediatheque.dto.CreatorDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
@@ -76,29 +77,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDetailsDto> getAllBooks() {
+    public List<BookLiteDto> getAllBooks() {
         List<Book> allBooks = bookRepository.findAll();
 
-        List<BookDetailsDto> books = new ArrayList<>();
+        List<BookLiteDto> books = new ArrayList<>();
 
         allBooks.forEach(book -> {
-            CreatorDto creator = new CreatorDto(
-                    book.getCreator().getId(),
-                    book.getCreator().getFirstName(),
-                    book.getCreator().getLastName()
-            );
-            List<Integer> users = book.getUsers().stream().map(MyUser::getId).collect(Collectors.toList());
-            BookDetailsDto bookDetailsDto = new BookDetailsDto(
-                    book.getId(),
-                    book.getTitle(),
-                    book.getAuthor(),
-                    book.getGenre(),
-                    book.getSummary(),
-                    book.getYear(),
-                    creator
-            );
-            bookDetailsDto.setUsers(users);
-            books.add(bookDetailsDto);
+            BookLiteDto bookLiteDto = new BookLiteDto(book.getId(), book.getTitle(), book.getAuthor());
+            books.add(bookLiteDto);
         });
         return books;
     }

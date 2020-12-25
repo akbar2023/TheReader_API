@@ -2,14 +2,14 @@ package fr.akbarkhan.mediatheque.service;
 
 import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
-import fr.akbarkhan.mediatheque.entity.Book;
+import fr.akbarkhan.mediatheque.dto.BookLiteDto;
 
 import java.util.List;
 
 public interface BookService {
     boolean saveBook(BookDto bookDto, int creatorId);
 
-    List<BookDetailsDto> getAllBooks();
+    List<BookLiteDto> getAllBooks();
 
     List<BookDetailsDto> findByTitle(String title);
 

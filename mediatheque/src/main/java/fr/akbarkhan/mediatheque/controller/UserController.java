@@ -1,5 +1,6 @@
 package fr.akbarkhan.mediatheque.controller;
 
+import fr.akbarkhan.mediatheque.controller.Reusable.Methods;
 import fr.akbarkhan.mediatheque.dto.*;
 import fr.akbarkhan.mediatheque.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,34 +19,28 @@ import java.util.Set;
 public class UserController {
 
     @Autowired
+    private Methods methods;
+
+    @Autowired
     private UserService userService;
 
     @PostMapping("register")
     public ResponseEntity<?> createUser(@Valid @RequestBody UserRegisterDto registerDto) {
-        if(userService.saveUser(registerDto)) {
-            return ResponseEntity.status(HttpStatus.OK).build();
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        return methods.getResponseEntity(userService.saveUser(registerDto));
     }
 
     // todo : improve security to let a user update his account info
     @PutMapping("update")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> updateUser(@Valid @RequestBody UserDto userDto, Principal principal) {
-        Integer userId = getUserIdFromToken(principal);
-        if (userService.updateUser(userDto, userId)) {
-            String message = String.format("user %s updated", userDto.getEmail());
-            return ResponseEntity.status(HttpStatus.OK).body(message);
-        } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
+        Integer userId = methods.getUserIdFromToken(principal);
+        return methods.getResponseEntity(userService.updateUser(userDto, userId));
     }
 
     @GetMapping("info")
     @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
     public ResponseEntity<?> getUserDetails(Principal principal) {
-        Integer userId = getUserIdFromToken(principal);
+        Integer userId = methods.getUserIdFromToken(principal);
         ConnectedUserDto byId = userService.findById(userId);
         if (byId != null) {
             return ResponseEntity.status(HttpStatus.OK).body(byId);
@@ -54,37 +49,5 @@ public class UserController {
         }
     }
 
-    @PostMapping("add-to-list/{bookId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
-    public ResponseEntity<?> addBookToList(@PathVariable("bookId") Integer bookId, Principal principal) {
-        Integer userId = getUserIdFromToken(principal);
-        if (userService.addBookToList(bookId, userId)) {
-            return ResponseEntity.status(HttpStatus.OK).body("Book added");
-        } else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Book add failed");
-        }
-    }
-
-    // todo: remove
-    @GetMapping("books")
-    @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
-    public Set<BookDetailsDto> getUsersBookList(Principal principal) {
-        Integer userId = getUserIdFromToken(principal);
-        return userService.getBookList(userId);
-    }
-
-    @PutMapping("remove-book/{bookId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN,USER')")
-    public ResponseEntity<?> updateBookList(@PathVariable("bookId") Integer bookId, Principal principal) {
-        Integer userId = getUserIdFromToken(principal);
-        if (userService.removeBookFromList(bookId, userId)) {
-            return ResponseEntity.status(HttpStatus.OK).body("book list update ok");
-        } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-    }
-
-    private Integer getUserIdFromToken(Principal principal) {
-        return Integer.parseInt(principal.getName());
-    }
+    // todo : Implement User deletion
 }

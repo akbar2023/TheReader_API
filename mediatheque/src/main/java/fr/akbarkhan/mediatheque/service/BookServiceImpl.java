@@ -55,11 +55,23 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findByTitle(String title) {
+    public List<BookDetailsDto> findByTitle(String title) {
         Iterable<Book> books = bookRepository.findAllByTitle(title);
-        List<Book> list = StreamSupport
-                .stream(books.spliterator(), false)
-                .collect(Collectors.toList());
+//        List<Book> list = StreamSupport
+//                .stream(books.spliterator(), false)
+//                .collect(Collectors.toList());
+        List<BookDetailsDto> list = new ArrayList<>();
+        for (Book book : books) {
+            list.add(new BookDetailsDto(book.getId(),
+                    book.getTitle(), book.getAuthor(),
+                    book.getGenre(),
+                    book.getSummary(),
+                    book.getYear(),
+                    new CreatorDto(book.getCreator().getId(),
+                            book.getCreator().getFirstName(),
+                            book.getCreator().getLastName())
+            ));
+        }
         return list;
     }
 

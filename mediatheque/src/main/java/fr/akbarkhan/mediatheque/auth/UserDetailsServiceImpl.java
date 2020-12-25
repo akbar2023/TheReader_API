@@ -22,6 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserService userService;
 
+    // todo : manage exception
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 

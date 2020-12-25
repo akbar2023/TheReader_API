@@ -1,5 +1,6 @@
 package fr.akbarkhan.mediatheque.controller;
 
+import fr.akbarkhan.mediatheque.controller.Reusable.Methods;
 import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
 import fr.akbarkhan.mediatheque.entity.Book;
@@ -18,6 +19,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
+
+    @Autowired
+    private Methods methods;
 
     @Autowired
     private BookService bookService;
@@ -42,37 +46,28 @@ public class BookController {
     // todo: change return type to BookDetailsDto
     @GetMapping("/title/{title}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public List<Book> getByName(@PathVariable("title") String title) {
+    public List<BookDetailsDto> getByTitle(@PathVariable("title") String title) {
         return bookService.findByTitle(title);
     }
 
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> addBook(@Valid @RequestBody BookDto bookDto, Principal principal) {
-        int creatorId = getUserIdFromToken(principal);
-        return bookService.saveBook(bookDto, creatorId) ?
-                ResponseEntity.status(HttpStatus.OK).build() :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        Integer userId = methods.getUserIdFromToken(principal);
+        return methods.getResponseEntity(bookService.saveBook(bookDto, userId));
     }
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> updateBook(@Valid @RequestBody BookDto bookDto, Principal principal) {
-        int userId = getUserIdFromToken(principal);
-        return bookService.updateBook(bookDto, userId) ?
-                ResponseEntity.status(HttpStatus.OK).build() :
-                ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        Integer userId = methods.getUserIdFromToken(principal);
+        return methods.getResponseEntity(bookService.updateBook(bookDto, userId));
     }
 
     @DeleteMapping("/{bookId}")
     public ResponseEntity<?> deleteBook(@PathVariable("bookId") Integer bookId, Principal principal) {
-        int userId = getUserIdFromToken(principal);
-        return bookService.deleteBook(userId, bookId) ?
-                ResponseEntity.status(HttpStatus.OK).build() :
-                ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        Integer userId = methods.getUserIdFromToken(principal);
+        return methods.getResponseEntity(bookService.deleteBook(userId, bookId));
     }
 
-    private int getUserIdFromToken(Principal principal) {
-        return Integer.parseInt(principal.getName());
-    }
 }

@@ -3,7 +3,6 @@ package fr.akbarkhan.mediatheque.controller;
 import fr.akbarkhan.mediatheque.controller.Reusable.Methods;
 import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
-import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

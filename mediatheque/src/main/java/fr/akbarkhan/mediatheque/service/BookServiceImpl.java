@@ -16,8 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -56,22 +54,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDetailsDto> findByTitle(String title) {
-        Iterable<Book> books = bookRepository.findAllByTitle(title);
-//        List<Book> list = StreamSupport
-//                .stream(books.spliterator(), false)
-//                .collect(Collectors.toList());
-        List<BookDetailsDto> list = new ArrayList<>();
+    public List<BookLiteDto> searchByTitle(String title) {
+        List<Book> books = bookRepository.searchAllByTitle(title);
+        List<BookLiteDto> list = new ArrayList<>();
         for (Book book : books) {
-            list.add(new BookDetailsDto(book.getId(),
-                    book.getTitle(), book.getAuthor(),
-                    book.getGenre(),
-                    book.getSummary(),
-                    book.getYear(),
-                    new CreatorDto(book.getCreator().getId(),
-                            book.getCreator().getFirstName(),
-                            book.getCreator().getLastName())
-            ));
+            list.add(new BookLiteDto(book.getId(), book.getTitle(), book.getAuthor()));
         }
         return list;
     }

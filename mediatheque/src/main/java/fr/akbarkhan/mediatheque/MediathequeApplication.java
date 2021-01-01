@@ -65,17 +65,13 @@ public class MediathequeApplication {
             MyUser laurent = userService.findByUsername("laurent@email.com");
             MyUser laura = userService.findByUsername("laura@email.com");
             MyUser satsuki = userService.findByUsername("satsuki@email.com");
-            List<Book> books = List.of(
-                    new Book(null, "The Reader", "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null),
-                    new Book(null, "The Reader 2", "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null),
-                    new Book(null, "The Reader 3", "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null),
-                    new Book(null, "The Reader 4", "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null),
-                    new Book(null, "The Reader 5", "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null)
-            );
-            bookRepository.saveAll(books);
-            userBookRepository.save(new UserBook(books.get(0),satsuki, true));
-            userBookRepository.save(new UserBook(books.get(1),satsuki, true));
-            userBookRepository.save(new UserBook(books.get(2),satsuki, true));
+
+            for (int x = 0; x < 10; x++) {
+                Book book = bookRepository.save(new Book(null, "The Reader " + x, "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null));
+                userBookRepository.save(new UserBook(book, satsuki, true));
+                userBookRepository.save(new UserBook(book, laura, true));
+                userBookRepository.save(new UserBook(book, laurent, false));
+            }
         };
     }
 

@@ -11,7 +11,7 @@ public interface BookService {
 
     List<BookLiteDto> getAllBooks();
 
-    List<BookDetailsDto> findByTitle(String title);
+    List<BookLiteDto> searchByTitle(String title);
 
     BookDetailsDto findById(Integer id);
 

@@ -43,11 +43,10 @@ public class BookController {
         }
     }
 
-    // todo: change return type to BookDetailsDto
-    @GetMapping("/title/{title}")
+    @GetMapping("/search/{title}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public List<BookDetailsDto> getByTitle(@PathVariable("title") String title) {
-        return bookService.findByTitle(title);
+    public List<BookLiteDto> searchByTitle(@PathVariable("title") String title) {
+        return bookService.searchByTitle(title);
     }
 
     @PostMapping

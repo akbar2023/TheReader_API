@@ -1,5 +1,6 @@
 package fr.akbarkhan.mediatheque.service;
 
+import fr.akbarkhan.mediatheque.dto.FavoriteReadingDto;
 import fr.akbarkhan.mediatheque.dto.ReadingDto;
 import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 import fr.akbarkhan.mediatheque.entity.Book;
@@ -31,7 +32,7 @@ public class UserBookServiceImpl implements UserBookService {
         MyUser reader = userRepository.findById(userId).orElse(null);
         Book book = bookRepository.findById(bookId).orElse(null);
         if (book != null && reader != null) {
-            UserBook userBook = new UserBook(book, reader, true);
+            UserBook userBook = new UserBook(book, reader, false, false);
             userBookRepository.save(userBook);
             return true;
         }
@@ -47,12 +48,13 @@ public class UserBookServiceImpl implements UserBookService {
                         userBook.getBook().getCreator().getId(),
                         userBook.getBook().getAuthor(),
                         userBook.getBook().getTitle(),
-                        userBook.isRead()))
+                        userBook.isRead(),
+                        userBook.isFavorite()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public boolean updateReading(Integer userId, ReadingStatusDto readingStatusDto) {
+    public boolean updateReadingStatus(Integer userId, ReadingStatusDto readingStatusDto) {
         UserBook userBook = userBookRepository.findById(readingStatusDto.getId()).orElse(null);
         if (userBook != null && userBook.getReader().getId().equals(userId)) {
             userBook.setRead(readingStatusDto.isRead());
@@ -63,8 +65,19 @@ public class UserBookServiceImpl implements UserBookService {
     }
 
     @Override
-    public boolean deleteReading(Integer userId, int bookId) {
-        List<UserBook> readings = userBookRepository.findReadingsWithBookIdReaderId(userId, bookId);
+    public boolean setFavoriteReading(Integer userId, FavoriteReadingDto favoriteReadingDto) {
+        UserBook userBook = userBookRepository.findById(favoriteReadingDto.getId()).orElse(null);
+        if (userBook != null && userBook.getReader().getId().equals(userId)) {
+            userBook.setFavorite(favoriteReadingDto.isFavorite());
+            userBookRepository.save(userBook);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteReading(Integer readerId, int bookId) {
+        List<UserBook> readings = userBookRepository.findReadingsWithBookIdReaderId(readerId, bookId);
         if (readings != null) {
             userBookRepository.deleteAll(readings);
             return true;
@@ -76,6 +89,4 @@ public class UserBookServiceImpl implements UserBookService {
     public List<Integer> getReadingIdBookId(Integer readerId) {
         return userBookRepository.findReadingBooksIdByReaderId(readerId);
     }
-
-
 }

@@ -1,6 +1,7 @@
 package fr.akbarkhan.mediatheque.controller;
 
 import fr.akbarkhan.mediatheque.controller.Reusable.Methods;
+import fr.akbarkhan.mediatheque.dto.FavoriteReadingDto;
 import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 import fr.akbarkhan.mediatheque.service.UserBookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,14 @@ public class UserBookController {
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> updateReadingStatus(Principal principal, @Valid @RequestBody ReadingStatusDto readingStatusDto) {
         Integer userId = methods.getUserIdFromToken(principal);
-        return methods.getResponseEntity(userBookService.updateReading(userId, readingStatusDto));
+        return methods.getResponseEntity(userBookService.updateReadingStatus(userId, readingStatusDto));
+    }
+
+    @PutMapping("/favorite")
+    @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
+    public ResponseEntity<?> satFavoriteReading(Principal principal, @Valid @RequestBody FavoriteReadingDto favoriteReadingDto) {
+        Integer userId = methods.getUserIdFromToken(principal);
+        return methods.getResponseEntity(userBookService.setFavoriteReading(userId, favoriteReadingDto));
     }
 
     @DeleteMapping("{bookId}")

@@ -22,13 +22,17 @@ public class UserBook {
     @Column(nullable = false)
     private boolean isRead;
 
+    @Column(nullable = false)
+    private boolean isFavorite;
+
     public UserBook() {
     }
 
-    public UserBook(Book book, MyUser reader, boolean isRead) {
+    public UserBook(Book book, MyUser reader, boolean isRead, boolean isFavorite) {
         this.book = book;
         this.reader = reader;
         this.isRead = isRead;
+        this.isFavorite = isFavorite;
     }
 
     public int getId() {
@@ -63,6 +67,14 @@ public class UserBook {
         isRead = read;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
     @Override
     public String toString() {
         return "UserBook{" +
@@ -70,6 +82,7 @@ public class UserBook {
                 ", book=" + book +
                 ", reader=" + reader +
                 ", isRead=" + isRead +
+                ", isFavorite=" + isFavorite +
                 '}';
     }
 }

@@ -14,16 +14,19 @@ public class ReadingDto {
 
     private boolean isRead;
 
+    private boolean isFavorite;
+
     public ReadingDto() {
     }
 
-    public ReadingDto(int readingId, int bookId, int creatorId, String author, String title, boolean isRead) {
+    public ReadingDto(int readingId, int bookId, int creatorId, String author, String title, boolean isRead, boolean isFavorite) {
         this.readingId = readingId;
         this.bookId = bookId;
         this.creatorId = creatorId;
         this.author = author;
         this.title = title;
         this.isRead = isRead;
+        this.isFavorite = isFavorite;
     }
 
     public int getReadingId() {
@@ -74,14 +77,24 @@ public class ReadingDto {
         isRead = read;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
     @Override
     public String toString() {
         return "ReadingDto{" +
                 "readingId=" + readingId +
                 ", bookId=" + bookId +
+                ", creatorId=" + creatorId +
                 ", author='" + author + '\'' +
                 ", title='" + title + '\'' +
                 ", isRead=" + isRead +
+                ", isFavorite=" + isFavorite +
                 '}';
     }
 }

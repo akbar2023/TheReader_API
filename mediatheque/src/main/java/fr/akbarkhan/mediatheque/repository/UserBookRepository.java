@@ -9,9 +9,11 @@ import java.util.List;
 
 public interface UserBookRepository extends JpaRepository<UserBook, Integer> {
 
+    // todo: return  list of userBookDto
     @Query("SELECT ub FROM UserBook ub WHERE ub.reader.id = :reader ORDER BY ub.id DESC")
     List<UserBook> findAllByReaderId(@Param("reader") int reader);
 
+    // todo: return  list of userBookDto
     @Query("SELECT ub FROM UserBook ub WHERE ub.book.id = :bookId")
     List<UserBook> findAllByBookId(@Param("bookId") int bookId);
 

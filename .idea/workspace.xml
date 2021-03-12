@@ -5,116 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1761c50d-db0d-4309-9db9-47aa37f0db4e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/MediathequeApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/auth/UserDetailsServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/controller/BookController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/controller/Reusable/Methods.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/controller/UserBookController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/dto/BookDetailsDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/dto/BookDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/dto/BookLiteDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/dto/ConnectedUserDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/dto/CreatorDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/dto/FavoriteReadingDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/dto/ReadingDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/dto/ReadingStatusDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/dto/UserDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/dto/UserRegisterDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/entity/Book.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/entity/MyUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/entity/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/entity/UserBook.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/exception/ApiException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/exception/UserExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/exception/UserNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/jwt/JwtConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/jwt/JwtSecretKey.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/jwt/JwtTokenVerifier.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/jwt/JwtUsernameAndPasswordAuthenticationFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/jwt/UsernameAndPasswordAuthenticationRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/repository/BookRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/repository/RoleRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/repository/UserBookRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/security/ApplicationSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/security/ApplicationUserPermission.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/security/ApplicationUserRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/security/PasswordConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/BookService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/BookServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/UserBookService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/UserBookServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/fr/akbarkhan/mediatheque/MediathequeApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Projet_final.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/docker-compose.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/MediathequeApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/auth/UserDetailsServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/controller/BookController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/controller/Reusable/Methods.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/controller/UserBookController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/dto/BookDetailsDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/dto/BookDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/dto/BookLiteDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/dto/ConnectedUserDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/dto/CreatorDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/dto/FavoriteReadingDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/dto/ReadingDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/dto/ReadingStatusDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/dto/UserDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/dto/UserRegisterDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/entity/Book.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/entity/MyUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/entity/Role.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/entity/UserBook.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/exception/ApiException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/exception/UserExceptionHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/exception/UserNotFoundException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/jwt/JwtConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/jwt/JwtSecretKey.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/jwt/JwtTokenVerifier.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/jwt/JwtUsernameAndPasswordAuthenticationFilter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/jwt/UsernameAndPasswordAuthenticationRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/repository/BookRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/repository/RoleRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/repository/UserBookRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/security/ApplicationSecurityConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/security/ApplicationUserPermission.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/security/ApplicationUserRole.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/security/PasswordConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/service/BookService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/service/BookServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/service/UserBookService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/service/UserBookServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/java/fr/akbarkhan/mediatheque/service/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/main/resources/static/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mediatheque/src/test/java/fr/akbarkhan/mediatheque/MediathequeApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,6 +49,11 @@
     </system>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="changeFolders" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1a1ZczGjVLOcJvaarlt9TgvVRSA" />

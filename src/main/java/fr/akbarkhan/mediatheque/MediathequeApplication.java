@@ -66,11 +66,11 @@ public class MediathequeApplication {
             MyUser laura = userService.findByUsername("laura@email.com");
             MyUser satsuki = userService.findByUsername("satsuki@email.com");
 
-            for (int x = 2; x < 10; x++) {
+            for (int x = 2; x < 120; x++) {
                 Book book = bookRepository.save(new Book(null, "The Reader " + x, "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null));
                 userBookRepository.save(new UserBook(book, satsuki, false, false));
-                userBookRepository.save(new UserBook(book, laura, false, false));
-                userBookRepository.save(new UserBook(book, laurent, true, true));
+                //userBookRepository.save(new UserBook(book, laura, false, false));
+                //userBookRepository.save(new UserBook(book, laurent, true, true));
             }
         };
     }

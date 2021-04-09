@@ -1,9 +1,8 @@
 package fr.akbarkhan.mediatheque.controller;
 
 import fr.akbarkhan.mediatheque.controller.Reusable.Methods;
-import fr.akbarkhan.mediatheque.dto.BookLiteDto;
 import fr.akbarkhan.mediatheque.dto.FavoriteReadingDto;
-import fr.akbarkhan.mediatheque.dto.PageInfoDto;
+import fr.akbarkhan.mediatheque.dto.PageableBooksDto;
 import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 import fr.akbarkhan.mediatheque.service.UserBookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +71,7 @@ public class UserBookController {
     @GetMapping("page/{page}/{size}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> getPages(@PathVariable("page") int page, @PathVariable("size") int size) {
-        PageInfoDto allBooksByPage = userBookService.getAllBooksByPage(page, size);
+        PageableBooksDto allBooksByPage = userBookService.getAllBooksByPage(page, size);
         return ResponseEntity.status(HttpStatus.OK).body(allBooksByPage);
     }
 }

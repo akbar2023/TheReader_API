@@ -2,12 +2,12 @@ package fr.akbarkhan.mediatheque.dto;
 
 import java.util.List;
 
-public class PageInfoDto {
+public class PageableBooksDto {
     private List<BookLiteDto> bookLiteDto;
     private long totalPages;
     private long totalElements;
 
-    public PageInfoDto(List<BookLiteDto> bookLiteDto, long totalPages, long totalElements) {
+    public PageableBooksDto(List<BookLiteDto> bookLiteDto, long totalPages, long totalElements) {
         this.bookLiteDto = bookLiteDto;
         this.totalPages = totalPages;
         this.totalElements = totalElements;

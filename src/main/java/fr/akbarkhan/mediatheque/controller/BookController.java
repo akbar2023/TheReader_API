@@ -17,7 +17,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/api/book")
+@RequestMapping("/api/book/")
 public class BookController {
 
     @Autowired
@@ -32,7 +32,13 @@ public class BookController {
         return bookService.getAllBooks();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("page/{page}/{size}")
+    @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
+    public ResponseEntity<?> getPageableBooks(@PathVariable("page") int page, @PathVariable("size") int size) {
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.getAllBooksPageable(page, size));
+    }
+
+    @GetMapping("{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> getById(@PathVariable("id") Integer id) {
         BookDetailsDto book = bookService.findById(id);
@@ -43,7 +49,7 @@ public class BookController {
         }
     }
 
-    @GetMapping("/search/{title}")
+    @GetMapping("search/{title}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public List<BookLiteDto> searchByTitle(@PathVariable("title") String title) {
         return bookService.searchByTitle(title);
@@ -63,7 +69,7 @@ public class BookController {
         return methods.getResponseEntity(bookService.updateBook(bookDto, userId));
     }
 
-    @DeleteMapping("/{bookId}")
+    @DeleteMapping("{bookId}")
     public ResponseEntity<?> deleteBook(@PathVariable("bookId") Integer bookId, Principal principal) {
         Integer userId = methods.getUserIdFromToken(principal);
         return methods.getResponseEntity(bookService.deleteBook(userId, bookId));

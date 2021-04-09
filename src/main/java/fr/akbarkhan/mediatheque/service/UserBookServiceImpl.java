@@ -98,13 +98,13 @@ public class UserBookServiceImpl implements UserBookService {
     * Example :If we want to display the first page with 4 elements within it, then the parameters should contain 0 and 4 respectively
     */
     @Override
-    public PageInfoDto getAllBooksByPage(int page, int size) {
+    public PageableBooksDto getAllBooksByPage(int page, int size) {
         Pageable pageAndSize = PageRequest.of(page, size);
         Page<BookLiteDto> all = userBookRepository.booksByPage(pageAndSize);
         long totalElements = all.getTotalElements();
         int totalPages = all.getTotalPages();
         all.getPageable().getPageNumber();
         List<BookLiteDto> content = all.getContent();
-        return new PageInfoDto(content, totalPages, totalElements);
+        return new PageableBooksDto(content, totalPages, totalElements);
     }
 }

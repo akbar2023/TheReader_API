@@ -18,6 +18,6 @@ public interface UserBookService {
 
     List<Integer> getReadingIdBookId(Integer userIdFromToken);
 
-    PageInfoDto getAllBooksByPage(int page, int size);
+    PageableBooksDto getAllBooksByPage(int page, int size);
 
 }

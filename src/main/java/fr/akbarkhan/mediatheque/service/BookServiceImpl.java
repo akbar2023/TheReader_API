@@ -1,9 +1,6 @@
 package fr.akbarkhan.mediatheque.service;
 
-import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
-import fr.akbarkhan.mediatheque.dto.BookDto;
-import fr.akbarkhan.mediatheque.dto.BookLiteDto;
-import fr.akbarkhan.mediatheque.dto.CreatorDto;
+import fr.akbarkhan.mediatheque.dto.*;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
 import fr.akbarkhan.mediatheque.entity.UserBook;
@@ -11,6 +8,9 @@ import fr.akbarkhan.mediatheque.repository.BookRepository;
 import fr.akbarkhan.mediatheque.repository.UserBookRepository;
 import fr.akbarkhan.mediatheque.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -74,6 +74,17 @@ public class BookServiceImpl implements BookService {
             books.add(bookLiteDto);
         });
         return books;
+    }
+
+    @Override
+    public PageableBooksDto getAllBooksPageable(int pageIndex, int pageSize) {
+        Pageable pageAndSize = PageRequest.of(pageIndex, pageSize);
+        Page<BookLiteDto> page = bookRepository.findAllBooksLite(pageAndSize);
+        long totalElements = page.getTotalElements();
+        int totalPages = page.getTotalPages();
+        page.getPageable().getPageNumber();
+        List<BookLiteDto> content = page.getContent();
+        return new PageableBooksDto(content, totalPages, totalElements);
     }
 
     @Override

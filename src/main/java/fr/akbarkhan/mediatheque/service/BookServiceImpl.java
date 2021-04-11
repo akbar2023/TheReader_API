@@ -64,32 +64,17 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookLiteDto> getAllBooks() {
-        List<Book> allBooks = bookRepository.findAll();
-
-        List<BookLiteDto> books = new ArrayList<>();
-
-        allBooks.forEach(book -> {
-            BookLiteDto bookLiteDto = new BookLiteDto(book.getId(), book.getTitle(), book.getAuthor());
-            books.add(bookLiteDto);
-        });
-        return books;
-    }
-
-    @Override
     public PageableBooksDto getAllBooksPageable(int pageIndex, int pageSize) {
         Pageable pageAndSize = PageRequest.of(pageIndex, pageSize);
         Page<BookLiteDto> page = bookRepository.findAllBooksLite(pageAndSize);
         long totalElements = page.getTotalElements();
         int totalPages = page.getTotalPages();
-        page.getPageable().getPageNumber();
-        List<BookLiteDto> content = page.getContent();
-        return new PageableBooksDto(content, totalPages, totalElements);
+        List<BookLiteDto> books = page.getContent();
+        return new PageableBooksDto(books, totalPages, totalElements);
     }
 
     @Override
     public boolean saveBook(BookDto bookDto, int creatorId) {
-        // todo: improve with findByIsbn => if is null then save
         Book book = new Book();
         book.setTitle(bookDto.getTitle());
         book.setAuthor(bookDto.getAuthor());

@@ -1,6 +1,8 @@
 package fr.akbarkhan.mediatheque.service;
 
-import fr.akbarkhan.mediatheque.dto.*;
+import fr.akbarkhan.mediatheque.dto.FavoriteReadingDto;
+import fr.akbarkhan.mediatheque.dto.ReadingDto;
+import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 
 import java.util.List;
 
@@ -17,7 +19,5 @@ public interface UserBookService {
     boolean deleteReading(Integer userId, int readingId);
 
     List<Integer> getReadingIdBookId(Integer userIdFromToken);
-
-    PageableBooksDto getAllBooksByPage(int page, int size);
 
 }

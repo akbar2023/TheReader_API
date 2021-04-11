@@ -26,12 +26,6 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public List<BookLiteDto> getAllBooks() {
-        return bookService.getAllBooks();
-    }
-
     @GetMapping("page/{page}/{size}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> getPageableBooks(@PathVariable("page") int page, @PathVariable("size") int size) {
@@ -59,20 +53,20 @@ public class BookController {
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> addBook(@Valid @RequestBody BookDto bookDto, Principal principal) {
         Integer userId = methods.getUserIdFromToken(principal);
-        return methods.getResponseEntity(bookService.saveBook(bookDto, userId));
+        return methods.getResponseHttpCode(bookService.saveBook(bookDto, userId));
     }
 
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> updateBook(@Valid @RequestBody BookDto bookDto, Principal principal) {
         Integer userId = methods.getUserIdFromToken(principal);
-        return methods.getResponseEntity(bookService.updateBook(bookDto, userId));
+        return methods.getResponseHttpCode(bookService.updateBook(bookDto, userId));
     }
 
     @DeleteMapping("{bookId}")
     public ResponseEntity<?> deleteBook(@PathVariable("bookId") Integer bookId, Principal principal) {
         Integer userId = methods.getUserIdFromToken(principal);
-        return methods.getResponseEntity(bookService.deleteBook(userId, bookId));
+        return methods.getResponseHttpCode(bookService.deleteBook(userId, bookId));
     }
 
 }

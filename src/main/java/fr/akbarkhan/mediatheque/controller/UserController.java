@@ -25,7 +25,7 @@ public class UserController {
 
     @PostMapping("register")
     public ResponseEntity<?> createUser(@Valid @RequestBody UserRegisterDto registerDto) {
-        return methods.getResponseEntity(userService.saveUser(registerDto));
+        return methods.getResponseHttpCode(userService.saveUser(registerDto));
     }
 
     // todo : improve security to let a user update his account info
@@ -33,7 +33,7 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> updateUser(@Valid @RequestBody UserDto userDto, Principal principal) {
         Integer userId = methods.getUserIdFromToken(principal);
-        return methods.getResponseEntity(userService.updateUser(userDto, userId));
+        return methods.getResponseHttpCode(userService.updateUser(userDto, userId));
     }
 
     @GetMapping("info")

@@ -68,8 +68,8 @@ public class MediathequeApplication {
 
             for (int x = 2; x < 20; x++) {
                 Book book = bookRepository.save(new Book(null, "The Reader " + x, "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null));
-                //userBookRepository.save(new UserBook(book, satsuki, false, false));
-                userBookRepository.save(new UserBook(book, laura, false, false));
+                userBookRepository.save(new UserBook(book, satsuki, false, false));
+                //userBookRepository.save(new UserBook(book, laura, false, false));
                 //userBookRepository.save(new UserBook(book, laurent, true, true));
             }
         };

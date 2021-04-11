@@ -8,9 +8,10 @@ import fr.akbarkhan.mediatheque.dto.PageableBooksDto;
 import java.util.List;
 
 public interface BookService {
-    boolean saveBook(BookDto bookDto, int creatorId);
 
-    List<BookLiteDto> getAllBooks();
+    PageableBooksDto getAllBooksPageable(int page, int size);
+
+    boolean saveBook(BookDto bookDto, int creatorId);
 
     List<BookLiteDto> searchByTitle(String title);
 
@@ -19,6 +20,4 @@ public interface BookService {
     boolean deleteBook(int userId, int bookId);
 
     boolean updateBook(BookDto bookDto, int userId);
-
-    PageableBooksDto getAllBooksPageable(int page, int size);
 }

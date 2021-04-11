@@ -13,7 +13,7 @@ public class Methods {
         return Integer.parseInt(principal.getName());
     }
 
-    public ResponseEntity<?> getResponseEntity(boolean b) {
+    public ResponseEntity<?> getResponseHttpCode(boolean b) {
         return b ?
                 ResponseEntity.status(HttpStatus.OK).build() :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

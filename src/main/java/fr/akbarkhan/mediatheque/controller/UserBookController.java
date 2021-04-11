@@ -2,7 +2,6 @@ package fr.akbarkhan.mediatheque.controller;
 
 import fr.akbarkhan.mediatheque.controller.Reusable.Methods;
 import fr.akbarkhan.mediatheque.dto.FavoriteReadingDto;
-import fr.akbarkhan.mediatheque.dto.PageableBooksDto;
 import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 import fr.akbarkhan.mediatheque.service.UserBookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class UserBookController {
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> addReading(@PathVariable("bookId") Integer bookId, Principal principal) {
         int userId = methods.getUserIdFromToken(principal);
-        return methods.getResponseEntity(userBookService.addReadingBook(bookId, userId));
+        return methods.getResponseHttpCode(userBookService.addReadingBook(bookId, userId));
     }
 
     @GetMapping
@@ -44,21 +43,21 @@ public class UserBookController {
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> updateReadingStatus(Principal principal, @Valid @RequestBody ReadingStatusDto readingStatusDto) {
         Integer userId = methods.getUserIdFromToken(principal);
-        return methods.getResponseEntity(userBookService.updateReadingStatus(userId, readingStatusDto));
+        return methods.getResponseHttpCode(userBookService.updateReadingStatus(userId, readingStatusDto));
     }
 
     @PutMapping("/favorite")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> setFavoriteReading(Principal principal, @Valid @RequestBody FavoriteReadingDto favoriteReadingDto) {
         Integer userId = methods.getUserIdFromToken(principal);
-        return methods.getResponseEntity(userBookService.setFavoriteReading(userId, favoriteReadingDto));
+        return methods.getResponseHttpCode(userBookService.setFavoriteReading(userId, favoriteReadingDto));
     }
 
     @DeleteMapping("{bookId}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> deleteReading(Principal principal, @PathVariable("bookId") int bookId) {
         Integer userId = methods.getUserIdFromToken(principal);
-        return methods.getResponseEntity(userBookService.deleteReading(userId, bookId));
+        return methods.getResponseHttpCode(userBookService.deleteReading(userId, bookId));
     }
 
     @GetMapping("reading-book-ids")
@@ -66,12 +65,5 @@ public class UserBookController {
     public List<Integer> getReadingsIds(Principal principal) {
         Integer userId = methods.getUserIdFromToken(principal);
         return userBookService.getReadingIdBookId(userId);
-    }
-
-    @GetMapping("page/{page}/{size}")
-    @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public ResponseEntity<?> getPages(@PathVariable("page") int page, @PathVariable("size") int size) {
-        PageableBooksDto allBooksByPage = userBookService.getAllBooksByPage(page, size);
-        return ResponseEntity.status(HttpStatus.OK).body(allBooksByPage);
     }
 }

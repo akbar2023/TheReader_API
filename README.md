@@ -1,4 +1,4 @@
-# PROJET FINAL
-##The Reader
+# The Reader
+## Final project
 
 This is a Spring Boot REST api of my library app developed for the final exam of my training at Renault Digital Inclusive University and Simplon.co

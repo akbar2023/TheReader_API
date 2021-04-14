@@ -3,7 +3,6 @@ package fr.akbarkhan.mediatheque.controller;
 import fr.akbarkhan.mediatheque.controller.Reusable.Methods;
 import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
-import fr.akbarkhan.mediatheque.dto.BookLiteDto;
 import fr.akbarkhan.mediatheque.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -43,10 +41,10 @@ public class BookController {
         }
     }
 
-    @GetMapping("search/{title}")
+    @GetMapping("search/{page}/{size}/{title}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public List<BookLiteDto> searchByTitle(@PathVariable("title") String title) {
-        return bookService.searchByTitle(title);
+    public ResponseEntity<?> searchByTitle(@PathVariable("title") String title, @PathVariable("page") int page, @PathVariable("size") int size) {
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.searchByTitle(title, page, size));
     }
 
     @PostMapping

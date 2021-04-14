@@ -1,5 +1,7 @@
 package fr.akbarkhan.mediatheque;
 
+import fr.akbarkhan.mediatheque.dto.BookDto;
+import fr.akbarkhan.mediatheque.dto.BookLiteDto;
 import fr.akbarkhan.mediatheque.entity.Book;
 import fr.akbarkhan.mediatheque.entity.MyUser;
 import fr.akbarkhan.mediatheque.entity.Role;
@@ -65,9 +67,9 @@ public class MediathequeApplication {
             MyUser laurent = userService.findByUsername("laurent@email.com");
             MyUser laura = userService.findByUsername("laura@email.com");
             MyUser satsuki = userService.findByUsername("satsuki@email.com");
-
-            for (int x = 2; x < 20; x++) {
-                Book book = bookRepository.save(new Book(null, "The Reader " + x, "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null));
+            //List<String> livres = new ArrayList<>(Arrays.asList("The jhonsons famimily", "Lena the beatyful girl", "Yakkari", "Un jour à Beauvais", "The jhonsons famimily", "Lena the beatyful girl", "Yakkari", "Un jour à Beauvais", "The jhonsons famimily", "Lena the beatyful girl", "Yakkari", "Un jour à Beauvais", "The jhonsons famimily", "Lena the beatyful girl", "Yakkari", "Un jour à Beauvais"));
+            for (int x = 0; x < 40; x++) {
+                Book book = bookRepository.save(new Book(null, "The Reader" + x, "Comedy", "Jean Honoré Fragonard", 2012, "The little pretty girl is reading", satsuki, null));
                 userBookRepository.save(new UserBook(book, satsuki, false, false));
                 //userBookRepository.save(new UserBook(book, laura, false, false));
                 //userBookRepository.save(new UserBook(book, laurent, true, true));

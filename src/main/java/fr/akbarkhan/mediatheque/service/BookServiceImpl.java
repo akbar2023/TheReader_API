@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,13 +53,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookLiteDto> searchByTitle(String title) {
-        List<Book> books = bookRepository.searchAllByTitle(title);
-        List<BookLiteDto> list = new ArrayList<>();
-        for (Book book : books) {
-            list.add(new BookLiteDto(book.getId(), book.getTitle(), book.getAuthor()));
-        }
-        return list;
+    public PageableBooksDto searchByTitle(String title, int page, int size) {
+        Pageable pageAndSize = PageRequest.of(page, size);
+
+        Page<BookLiteDto> pages = bookRepository.searchAllByTitle(title, pageAndSize);
+        long totalElements = pages.getTotalElements();
+        int totalPages = pages.getTotalPages();
+        List<BookLiteDto> books = pages.getContent();
+        return new PageableBooksDto(books, totalPages, totalElements);
     }
 
     @Override

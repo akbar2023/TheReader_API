@@ -2,10 +2,7 @@ package fr.akbarkhan.mediatheque.service;
 
 import fr.akbarkhan.mediatheque.dto.BookDetailsDto;
 import fr.akbarkhan.mediatheque.dto.BookDto;
-import fr.akbarkhan.mediatheque.dto.BookLiteDto;
 import fr.akbarkhan.mediatheque.dto.PageableBooksDto;
-
-import java.util.List;
 
 public interface BookService {
 
@@ -13,7 +10,7 @@ public interface BookService {
 
     boolean saveBook(BookDto bookDto, int creatorId);
 
-    List<BookLiteDto> searchByTitle(String title);
+    PageableBooksDto searchByTitle(String title, int page, int size);
 
     BookDetailsDto findById(Integer id);
 

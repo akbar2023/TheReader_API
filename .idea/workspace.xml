@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1761c50d-db0d-4309-9db9-47aa37f0db4e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/dto/PageableReadingsDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/MediathequeApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/MediathequeApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/repository/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/repository/BookRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/BookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/BookServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/controller/UserBookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/controller/UserBookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/repository/UserBookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/repository/UserBookRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/UserBookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/UserBookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/UserBookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/akbarkhan/mediatheque/service/UserBookServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,8 +127,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.TheReader_API [build]" />
         <item itemvalue="Application.MediathequeApplication" />
+        <item itemvalue="Gradle.TheReader_API [build]" />
       </list>
     </recent_temporary>
   </component>

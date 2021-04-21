@@ -32,11 +32,11 @@ public class UserBookController {
         return methods.getResponseHttpCode(userBookService.addReadingBook(bookId, userId));
     }
 
-    @GetMapping
+    @GetMapping("{page}/{size}")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
-    public ResponseEntity<?> getReadings(Principal principal) {
+    public ResponseEntity<?> getReadings(Principal principal, @PathVariable("page") int page, @PathVariable("size") int size) {
         int userId = methods.getUserIdFromToken(principal);
-        return ResponseEntity.status(HttpStatus.OK).body(userBookService.getReadingBooks(userId));
+        return ResponseEntity.status(HttpStatus.OK).body(userBookService.getMyBooksPageable(userId, page, size));
     }
 
     @PutMapping
@@ -46,7 +46,7 @@ public class UserBookController {
         return methods.getResponseHttpCode(userBookService.updateReadingStatus(userId, readingStatusDto));
     }
 
-    @PutMapping("/favorite")
+    @PutMapping("favorite")
     @PreAuthorize("hasAnyAuthority('ADMIN, USER')")
     public ResponseEntity<?> setFavoriteReading(Principal principal, @Valid @RequestBody FavoriteReadingDto favoriteReadingDto) {
         Integer userId = methods.getUserIdFromToken(principal);

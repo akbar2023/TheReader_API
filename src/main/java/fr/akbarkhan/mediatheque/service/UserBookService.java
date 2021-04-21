@@ -1,6 +1,7 @@
 package fr.akbarkhan.mediatheque.service;
 
 import fr.akbarkhan.mediatheque.dto.FavoriteReadingDto;
+import fr.akbarkhan.mediatheque.dto.PageableReadingsDto;
 import fr.akbarkhan.mediatheque.dto.ReadingDto;
 import fr.akbarkhan.mediatheque.dto.ReadingStatusDto;
 
@@ -10,7 +11,7 @@ public interface UserBookService {
 
     boolean addReadingBook(int bookId, int userId);
 
-    List<ReadingDto> getReadingBooks(int userId);
+    PageableReadingsDto getMyBooksPageable(int userId, int page, int size);
 
     boolean updateReadingStatus(Integer userId, ReadingStatusDto readingStatusDto);
 

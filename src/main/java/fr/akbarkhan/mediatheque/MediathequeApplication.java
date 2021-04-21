@@ -48,6 +48,7 @@ public class MediathequeApplication {
     @Transactional
     CommandLineRunner start(RoleRepository roleRepository, UserRepository userRepository, BookRepository bookRepository, UserBookRepository userBookRepository) {
         return args -> {
+            /*
             roleRepository.save(new Role("ADMIN"));
             roleRepository.save(new Role("USER"));
             Collection<Role> roles = new ArrayList<Role>();
@@ -74,6 +75,8 @@ public class MediathequeApplication {
                 //userBookRepository.save(new UserBook(book, laura, false, false));
                 //userBookRepository.save(new UserBook(book, laurent, true, true));
             }
+
+             */
         };
     }
 
